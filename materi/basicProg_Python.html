@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petualangan Koding Bersama Python — Kelas 8 SMP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#2FA8E8; --blue-dark:#1E7FB8; --blue-light:#E3F5FF;
+  --yellow:#FFC93C; --yellow-dark:#E8A800; --yellow-light:#FFF6DC;
+  --green:#5FCB79; --green-dark:#3FA857; --green-light:#E7F9EC;
+  --red:#FF6F6F; --red-dark:#E14F4F; --red-light:#FFEBEB;
+  --navy:#2D3B55; --navy-soft:#5A6B87;
+  --cream:#FFFBF0; --white:#FFFFFF;
+  --editor:#25324A; --editor-line:#3A4A68;
+  --radius-lg:26px; --radius-md:18px; --radius-sm:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Nunito',sans-serif;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(95,203,121,0.12) 0, transparent 40%),
+    radial-gradient(circle at 92% 8%, rgba(255,201,60,0.16) 0, transparent 38%),
+    radial-gradient(circle at 85% 90%, rgba(47,168,232,0.14) 0, transparent 42%),
+    linear-gradient(180deg,#EAF7FF 0%, #FDFBF3 55%, #FFFBF0 100%);
+  color:var(--navy);
+  min-height:100vh;
+  overflow-x:hidden;
+  padding-bottom:40px;
+}
+h1,h2,h3,h4,.font-heading{font-family:'Fredoka',sans-serif;font-weight:600;}
+p,li,label,span,input,textarea,button{font-family:'Nunito',sans-serif;}
+code,.code-font{font-family:'Fira Code',monospace;}
+a{color:var(--blue-dark);}
+button{cursor:pointer;border:none;font-family:'Fredoka',sans-serif;}
+::selection{background:var(--yellow);color:var(--navy);}
+
+/* ===== decorative floating shapes (background only) ===== */
+.bg-shapes{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;}
+.bg-shapes span{position:absolute;border-radius:50%;opacity:0.5;filter:blur(1px);}
+.bg-shapes span:nth-child(1){width:90px;height:90px;background:var(--yellow-light);top:6%;left:4%;}
+.bg-shapes span:nth-child(2){width:60px;height:60px;background:var(--green-light);top:70%;left:88%;}
+.bg-shapes span:nth-child(3){width:130px;height:130px;background:var(--blue-light);top:40%;left:-4%;}
+.bg-shapes span:nth-child(4){width:70px;height:70px;background:var(--yellow-light);top:85%;left:10%;}
+.bg-shapes span:nth-child(5){width:50px;height:50px;background:var(--blue-light);top:14%;left:80%;}
+
+/* ===== top progress / nav ===== */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,251,240,0.92);backdrop-filter:blur(6px);
+  border-bottom:3px solid var(--navy);
+  padding:10px 16px;
+}
+.topbar-inner{max-width:920px;margin:0 auto;display:flex;align-items:center;gap:14px;}
+.topbar-title{font-family:'Fredoka',sans-serif;font-weight:600;font-size:1rem;color:var(--navy);white-space:nowrap;display:flex;align-items:center;gap:8px;}
+.topbar-title svg{width:28px;height:28px;flex-shrink:0;}
+.steps{display:flex;gap:6px;flex:1;justify-content:flex-end;}
+.step-dot{
+  display:flex;align-items:center;gap:6px;background:var(--white);
+  border:2px solid var(--navy);border-radius:999px;padding:5px 10px 5px 6px;
+  font-size:0.72rem;font-weight:700;color:var(--navy-soft);
+  transition:all .18s ease;white-space:nowrap;
+}
+.step-dot .num{
+  width:20px;height:20px;border-radius:50%;background:var(--cream);
+  display:flex;align-items:center;justify-content:center;font-size:0.7rem;
+  border:2px solid var(--navy-soft);color:var(--navy-soft);
+}
+.step-dot.active{background:var(--blue);color:var(--white);border-color:var(--navy);}
+.step-dot.active .num{background:var(--yellow);border-color:var(--navy);color:var(--navy);}
+.step-dot.done{background:var(--green-light);border-color:var(--green-dark);color:var(--green-dark);}
+.step-dot.done .num{background:var(--green);border-color:var(--green-dark);color:var(--white);}
+.step-label{display:none;}
+@media(min-width:760px){.step-label{display:inline;}}
+
+.progressbar-track{height:8px;background:var(--blue-light);border-radius:999px;max-width:920px;margin:8px auto 0;overflow:hidden;border:2px solid var(--navy);}
+.progressbar-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--blue));width:16.6%;transition:width .35s ease;}
+
+/* ===== layout ===== */
+.wrap{max-width:900px;margin:0 auto;padding:28px 18px 10px;}
+.section{display:none;animation:none;}
+.section.active{display:block;}
+.section-head{margin-bottom:22px;}
+.eyebrow-icon{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+.eyebrow-icon svg{width:44px;height:44px;flex-shrink:0;}
+.section-head h2{font-size:1.7rem;color:var(--navy);}
+.section-sub{color:var(--navy-soft);font-size:1rem;margin-top:4px;line-height:1.5;}
+
+/* ===== generic card / panel ===== */
+.panel{
+  background:var(--white);border:3px solid var(--navy);border-radius:var(--radius-lg);
+  padding:22px 22px;margin-bottom:20px;position:relative;
+  box-shadow:0 6px 0 rgba(45,59,85,0.18);
+}
+.panel.blue{background:var(--blue-light);}
+.panel.yellow{background:var(--yellow-light);}
+.panel.green{background:var(--green-light);}
+
+/* speech-bubble tip box from Kodi */
+.kodi-tip{
+  display:flex;gap:14px;align-items:flex-start;
+  background:var(--white);border:3px dashed var(--blue);
+  border-radius:var(--radius-md);padding:14px 16px;margin:18px 0;
+}
+.kodi-tip .kodi-avatar{width:52px;height:52px;flex-shrink:0;}
+.kodi-tip .tip-text{font-size:0.96rem;line-height:1.55;}
+.kodi-tip .tip-text b{color:var(--blue-dark);}
+
+/* real-life connection callout */
+.life-box{
+  background:var(--green-light);border:3px solid var(--green-dark);
+  border-radius:var(--radius-md);padding:14px 18px;margin:16px 0;
+  display:flex;gap:12px;align-items:flex-start;
+}
+.life-box svg{width:34px;height:34px;flex-shrink:0;margin-top:2px;}
+.life-box .life-text{font-size:0.95rem;line-height:1.55;}
+.life-box .life-text b{color:var(--green-dark);}
+
+/* code editor block */
+.code-block{
+  background:var(--editor);border-radius:var(--radius-md);
+  overflow:hidden;margin:16px 0;border:3px solid var(--navy);
+}
+.code-block .code-titlebar{
+  background:var(--editor-line);padding:8px 14px;display:flex;align-items:center;gap:8px;
+}
+.code-block .dot{width:11px;height:11px;border-radius:50%;}
+.code-block .dot.r{background:#FF6F6F;} .code-block .dot.y{background:#FFC93C;} .code-block .dot.g{background:#5FCB79;}
+.code-block .code-filename{color:#B9C6E0;font-size:0.75rem;margin-left:6px;font-family:'Fira Code',monospace;}
+.code-block pre{
+  margin:0;padding:16px 18px;overflow-x:auto;color:#EAF2FF;
+  font-family:'Fira Code',monospace;font-size:0.88rem;line-height:1.65;
+}
+.code-block .cm{color:#7FDBA4;} .code-block .st{color:#FFD37F;} .code-block .kw{color:#7FC4FF;} .code-block .nu{color:#FFB4E6;}
+.code-out{
+  background:#1B2436;border-top:2px solid var(--editor-line);padding:10px 18px;
+  font-family:'Fira Code',monospace;font-size:0.84rem;color:#9BE6B4;
+}
+.code-out .lbl{color:#7A8AAE;display:block;font-size:0.72rem;margin-bottom:3px;letter-spacing:0.3px;}
+
+/* buttons */
+.btn{
+  font-weight:600;font-size:0.98rem;border-radius:999px;padding:13px 26px;
+  transition:transform .12s ease, box-shadow .12s ease;display:inline-flex;align-items:center;gap:8px;
+}
+.btn:active{transform:translateY(3px);}
+.btn-primary{background:var(--blue);color:var(--white);box-shadow:0 5px 0 var(--blue-dark);}
+.btn-primary:active{box-shadow:0 2px 0 var(--blue-dark);}
+.btn-yellow{background:var(--yellow);color:var(--navy);box-shadow:0 5px 0 var(--yellow-dark);}
+.btn-yellow:active{box-shadow:0 2px 0 var(--yellow-dark);}
+.btn-green{background:var(--green);color:var(--white);box-shadow:0 5px 0 var(--green-dark);}
+.btn-green:active{box-shadow:0 2px 0 var(--green-dark);}
+.btn-outline{background:var(--white);color:var(--navy);border:3px solid var(--navy);box-shadow:0 5px 0 var(--navy);}
+.btn-outline:active{box-shadow:0 2px 0 var(--navy);}
+.btn:disabled{opacity:0.45;cursor:not-allowed;transform:none;}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;justify-content:space-between;}
+
+/* tabs (materi inti) */
+.tabbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+.tab-btn{
+  background:var(--white);border:3px solid var(--navy);border-radius:999px;
+  padding:9px 16px;font-weight:600;font-size:0.88rem;color:var(--navy-soft);
+  display:flex;align-items:center;gap:7px;
+}
+.tab-btn svg{width:20px;height:20px;}
+.tab-btn.active{background:var(--navy);color:var(--white);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;animation:fadein .25s ease;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+/* activity cards */
+.activity-nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;}
+.activity-panel{display:none;}
+.activity-panel.active{display:block;}
+.mini-box{
+  background:var(--cream);border:2.5px solid var(--navy-soft);border-radius:var(--radius-md);
+  padding:16px;margin:14px 0;
+}
+
+/* Variable Box activity */
+.varbox-input-row{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0;}
+.varbox-input-row input{
+  flex:1;min-width:180px;padding:12px 16px;border-radius:999px;border:3px solid var(--navy);
+  font-size:1rem;font-family:'Fira Code',monospace;
+}
+.varbox-result{
+  margin-top:16px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+}
+.box-3d{
+  width:130px;height:100px;background:var(--yellow);border:3px solid var(--navy);border-radius:14px;
+  display:flex;align-items:center;justify-content:center;font-family:'Fira Code',monospace;
+  font-weight:600;font-size:1rem;color:var(--navy);text-align:center;padding:8px;
+  box-shadow:0 6px 0 var(--yellow-dark);word-break:break-all;transform:scale(0.85);opacity:0;
+  transition:all .3s cubic-bezier(.34,1.56,.64,1);
+}
+.box-3d.show{transform:scale(1);opacity:1;}
+.type-tag{
+  padding:8px 16px;border-radius:999px;font-weight:700;font-size:0.9rem;color:var(--white);
+  opacity:0;transform:translateY(8px);transition:all .3s ease;
+}
+.type-tag.show{opacity:1;transform:translateY(0);}
+.type-int{background:var(--blue);} .type-float{background:var(--green-dark);}
+.type-str{background:var(--yellow-dark);} .type-bool{background:#B07AE0;}
+
+/* if-else simulator */
+.scenario-tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.flow-diagram{display:flex;flex-direction:column;align-items:center;gap:0;margin:20px 0;font-size:0.9rem;font-weight:700;}
+.flow-node{border:3px solid var(--navy);border-radius:14px;padding:10px 18px;background:var(--white);min-width:200px;text-align:center;}
+.flow-node.cond{border-radius:50px;background:var(--blue-light);}
+.flow-arrow{font-size:1.3rem;color:var(--navy-soft);margin:2px 0;}
+.flow-branches{display:flex;gap:30px;margin-top:4px;}
+.flow-branch{display:flex;flex-direction:column;align-items:center;opacity:0.4;transition:all .25s ease;}
+.flow-branch.active{opacity:1;}
+.flow-branch .flow-node{background:var(--cream);}
+.flow-branch.active.yes .flow-node{background:var(--green);color:var(--white);}
+.flow-branch.active.no .flow-node{background:var(--red);color:var(--white);}
+.scenario-input{display:flex;gap:10px;align-items:center;margin:14px 0;flex-wrap:wrap;}
+.scenario-input input,.scenario-input select{padding:11px 15px;border-radius:999px;border:3px solid var(--navy);font-family:'Fira Code',monospace;font-size:0.95rem;}
+.console-out{background:var(--editor);color:#9BE6B4;font-family:'Fira Code',monospace;border-radius:12px;padding:12px 16px;margin-top:14px;min-height:24px;font-size:0.9rem;}
+
+/* loop stepper */
+.loop-track{background:var(--blue-light);border:3px solid var(--navy);border-radius:var(--radius-md);padding:24px 16px;margin:16px 0;position:relative;overflow-x:auto;}
+.loop-path{display:flex;gap:10px;min-width:max-content;padding-bottom:10px;}
+.loop-cell{width:56px;height:56px;border-radius:12px;background:var(--white);border:3px solid var(--navy-soft);display:flex;align-items:center;justify-content:center;font-family:'Fira Code',monospace;font-weight:600;position:relative;flex-shrink:0;}
+.loop-cell.filled{background:var(--yellow);border-color:var(--yellow-dark);}
+.loop-cell.current{background:var(--green);border-color:var(--green-dark);color:var(--white);transform:scale(1.1);}
+.loop-robot{position:absolute;top:-38px;font-size:1.8rem;transition:left .35s ease;left:16px;}
+.loop-info{display:flex;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:wrap;gap:10px;}
+.loop-stat{background:var(--white);border:2.5px solid var(--navy);border-radius:999px;padding:8px 16px;font-weight:700;font-size:0.9rem;}
+
+/* matching game */
+.match-grid{display:grid;grid-template-columns:1fr;gap:20px;}
+@media(min-width:640px){.match-grid{grid-template-columns:1fr 1fr;}}
+.match-col{display:flex;flex-direction:column;gap:10px;}
+.match-card{
+  background:var(--white);border:3px solid var(--navy);border-radius:var(--radius-sm);
+  padding:12px 16px;font-size:0.92rem;font-weight:700;text-align:left;transition:all .15s ease;
+}
+.match-card.selected{background:var(--blue);color:var(--white);}
+.match-card.correct{background:var(--green);color:var(--white);border-color:var(--green-dark);}
+.match-card.wrong-flash{background:var(--red);color:var(--white);}
+.match-card.matched-hide{visibility:hidden;}
+
+/* quiz */
+.quiz-progress-text{font-weight:700;color:var(--navy-soft);margin-bottom:10px;font-size:0.9rem;}
+.quiz-card{background:var(--white);border:4px solid var(--navy);border-radius:var(--radius-lg);padding:24px;box-shadow:0 8px 0 rgba(45,59,85,0.18);}
+.quiz-question{font-size:1.12rem;font-weight:700;margin-bottom:16px;line-height:1.5;}
+.quiz-options{display:flex;flex-direction:column;gap:10px;}
+.opt-btn{
+  background:var(--cream);border:3px solid var(--navy-soft);border-radius:var(--radius-md);
+  padding:13px 18px;text-align:left;font-size:0.98rem;font-weight:600;color:var(--navy);
+  display:flex;gap:10px;align-items:center;transition:all .15s ease;
+}
+.opt-btn .opt-letter{width:26px;height:26px;border-radius:50%;background:var(--white);border:2.5px solid var(--navy-soft);display:flex;align-items:center;justify-content:center;font-size:0.8rem;flex-shrink:0;}
+.opt-btn:hover:not(:disabled){border-color:var(--blue);}
+.opt-btn.tf-btn{justify-content:center;font-family:'Fredoka',sans-serif;font-size:1.05rem;}
+.opt-btn.correct-answer{background:var(--green-light);border-color:var(--green-dark);}
+.opt-btn.correct-answer .opt-letter{background:var(--green);border-color:var(--green-dark);color:var(--white);}
+.opt-btn.wrong-answer{background:var(--red-light);border-color:var(--red-dark);}
+.opt-btn.wrong-answer .opt-letter{background:var(--red);border-color:var(--red-dark);color:var(--white);}
+.opt-btn:disabled{cursor:default;}
+.feedback-panel{margin-top:18px;border-radius:var(--radius-md);padding:16px 18px;display:none;gap:12px;align-items:flex-start;}
+.feedback-panel.show{display:flex;}
+.feedback-panel.correct{background:var(--green-light);border:3px solid var(--green-dark);}
+.feedback-panel.wrong{background:var(--yellow-light);border:3px solid var(--yellow-dark);}
+.feedback-panel svg{width:34px;height:34px;flex-shrink:0;}
+.feedback-panel .fb-title{font-family:'Fredoka',sans-serif;font-weight:600;font-size:1.02rem;margin-bottom:4px;}
+.feedback-panel.correct .fb-title{color:var(--green-dark);}
+.feedback-panel.wrong .fb-title{color:var(--yellow-dark);}
+.feedback-panel .fb-text{font-size:0.92rem;line-height:1.5;color:var(--navy);}
+
+.quiz-result{text-align:center;padding:10px 0;}
+.score-ring{width:170px;height:170px;border-radius:50%;background:conic-gradient(var(--green) calc(var(--pct,0)*1%), var(--blue-light) 0);display:flex;align-items:center;justify-content:center;margin:10px auto 18px;border:4px solid var(--navy);}
+.score-ring-inner{width:130px;height:130px;border-radius:50%;background:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.score-ring-inner .big{font-size:2.1rem;font-family:'Fredoka',sans-serif;font-weight:600;}
+.score-ring-inner .small{font-size:0.8rem;color:var(--navy-soft);font-weight:700;}
+
+/* reflection */
+.emoji-scale{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:16px 0;}
+.emoji-btn{font-size:2rem;background:var(--white);border:3px solid var(--navy-soft);border-radius:16px;padding:10px 14px;transition:all .15s ease;}
+.emoji-btn.selected{background:var(--yellow);border-color:var(--yellow-dark);transform:scale(1.12);}
+.pick-row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0;}
+.pick-chip{background:var(--white);border:2.5px solid var(--navy-soft);border-radius:999px;padding:9px 15px;font-size:0.88rem;font-weight:700;color:var(--navy-soft);}
+.pick-chip.selected{background:var(--blue);color:var(--white);border-color:var(--blue-dark);}
+.reflect-textarea{width:100%;border:3px solid var(--navy);border-radius:var(--radius-md);padding:13px 16px;font-size:0.95rem;font-family:'Nunito',sans-serif;resize:vertical;min-height:80px;}
+
+/* certificate */
+.certificate{
+  background:var(--white);border:6px double var(--navy);border-radius:var(--radius-lg);
+  padding:34px 26px;text-align:center;margin-top:20px;position:relative;
+}
+.certificate .cert-name{font-family:'Fredoka',sans-serif;font-size:1.7rem;color:var(--blue-dark);margin:10px 0;border-bottom:3px solid var(--yellow);display:inline-block;padding-bottom:4px;}
+.certificate .cert-medal{width:70px;height:70px;margin:0 auto 8px;}
+
+/* cover */
+.cover-wrap{text-align:center;padding:10px 0 20px;}
+.cover-mascot{width:180px;height:180px;margin:0 auto 6px;}
+.cover-title{font-size:2.1rem;line-height:1.15;margin:8px 0 6px;color:var(--navy);}
+.cover-title .hl{color:var(--blue-dark);}
+.cover-badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:14px 0 22px;}
+.badge{background:var(--white);border:2.5px solid var(--navy);border-radius:999px;padding:7px 15px;font-size:0.82rem;font-weight:700;color:var(--navy-soft);}
+.identity-form{background:var(--white);border:3px solid var(--navy);border-radius:var(--radius-lg);padding:20px;max-width:420px;margin:0 auto 20px;text-align:left;box-shadow:0 6px 0 rgba(45,59,85,0.18);}
+.identity-form label{font-size:0.82rem;font-weight:700;color:var(--navy-soft);display:block;margin:10px 0 4px;}
+.identity-form input{width:100%;padding:10px 14px;border-radius:12px;border:2.5px solid var(--navy-soft);font-size:0.95rem;}
+.identity-form input:first-of-type{margin-top:0;}
+
+/* objective list */
+.obj-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin:16px 0;}
+.obj-list li{display:flex;gap:14px;align-items:flex-start;background:var(--white);border:2.5px solid var(--navy);border-radius:var(--radius-md);padding:14px 16px;}
+.obj-list .obj-icon{width:34px;height:34px;flex-shrink:0;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--white);font-weight:700;font-family:'Fredoka',sans-serif;}
+.obj-list li p{font-size:0.95rem;line-height:1.5;}
+
+/* footer nav */
+.footer-note{text-align:center;color:var(--navy-soft);font-size:0.82rem;margin-top:34px;padding-top:14px;border-top:2px dashed var(--blue-light);}
+
+/* confetti canvas */
+.confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:999;}
+
+@media print{
+  .topbar,.progressbar-track,.btn-row,.section:not(#section-refleksi){display:none !important;}
+  #section-refleksi{display:block !important;}
+  #section-refleksi > *:not(#printArea){display:none !important;}
+  body{background:white;}
+}
+
+@media(max-width:480px){
+  .cover-title{font-size:1.6rem;}
+  .panel{padding:16px;}
+  .flow-branches{gap:14px;}
+}
+</style>
+</head>
+<body>
+<div class="bg-shapes"><span></span><span></span><span></span><span></span><span></span></div>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-title">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect x="55" y="100" width="90" height="70" rx="18" fill="#2FA8E8" stroke="#2D3B55" stroke-width="6"/><rect x="60" y="35" width="80" height="65" rx="20" fill="#E3F5FF" stroke="#2D3B55" stroke-width="6"/><circle cx="82" cy="66" r="11" fill="#FFFFFF" stroke="#2D3B55" stroke-width="4"/><circle cx="118" cy="66" r="11" fill="#FFFFFF" stroke="#2D3B55" stroke-width="4"/><circle cx="83" cy="67" r="5" fill="#2D3B55"/><circle cx="119" cy="67" r="5" fill="#2D3B55"/></svg>
+      <span>Dasar Pemrograman & Python</span>
+    </div>
+    <div class="steps" id="stepNav">
+      <button class="step-dot" data-target="section-cover"><span class="num">1</span><span class="step-label">Pembuka</span></button>
+      <button class="step-dot" data-target="section-tujuan"><span class="num">2</span><span class="step-label">Tujuan</span></button>
+      <button class="step-dot" data-target="section-materi"><span class="num">3</span><span class="step-label">Materi</span></button>
+      <button class="step-dot" data-target="section-aktivitas"><span class="num">4</span><span class="step-label">Aktivitas</span></button>
+      <button class="step-dot" data-target="section-kuis"><span class="num">5</span><span class="step-label">Kuis</span></button>
+      <button class="step-dot" data-target="section-refleksi"><span class="num">6</span><span class="step-label">Refleksi</span></button>
+    </div>
+  </div>
+  <div class="progressbar-track"><div class="progressbar-fill" id="progressFill"></div></div>
+</div>
+
+<div class="wrap">
+
+<!-- ============ SECTION 1: COVER & IDENTITAS ============ -->
+<section class="section active" id="section-cover">
+  <div class="cover-wrap">
+    <div class="cover-mascot">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <line x1="100" y1="35" x2="100" y2="18" stroke="#2D3B55" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="100" cy="14" r="7" fill="#FFC93C" stroke="#2D3B55" stroke-width="3"/>
+        <rect x="60" y="35" width="80" height="65" rx="20" fill="#E3F5FF" stroke="#2D3B55" stroke-width="4"/>
+        <circle cx="82" cy="66" r="11" fill="#FFFFFF" stroke="#2D3B55" stroke-width="3"/>
+        <circle cx="118" cy="66" r="11" fill="#FFFFFF" stroke="#2D3B55" stroke-width="3"/>
+        <circle cx="83" cy="67" r="4.5" fill="#2D3B55"/>
+        <circle cx="119" cy="67" r="4.5" fill="#2D3B55"/>
+        <path d="M85 84 Q100 94 115 84" stroke="#2D3B55" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <circle cx="70" cy="80" r="5" fill="#FFC93C" opacity="0.6"/>
+        <circle cx="130" cy="80" r="5" fill="#FFC93C" opacity="0.6"/>
+        <rect x="55" y="100" width="90" height="70" rx="18" fill="#2FA8E8" stroke="#2D3B55" stroke-width="4"/>
+        <circle cx="100" cy="132" r="13" fill="#5FCB79" stroke="#2D3B55" stroke-width="3"/>
+        <path d="M94 132 L98 136 L107 126" stroke="#FFFFFF" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="28" y="108" width="26" height="16" rx="8" fill="#2FA8E8" stroke="#2D3B55" stroke-width="4" transform="rotate(-25 41 116)"/>
+        <rect x="146" y="108" width="26" height="16" rx="8" fill="#2FA8E8" stroke="#2D3B55" stroke-width="4" transform="rotate(-45 159 116)"/>
+        <rect x="68" y="168" width="22" height="20" rx="8" fill="#2D3B55"/>
+        <rect x="110" y="168" width="22" height="20" rx="8" fill="#2D3B55"/>
+      </svg>
+    </div>
+    <h1 class="cover-title">Dasar Pemrograman<br>Bersama <span class="hl">Python!</span> 🐍</h1>
+    <p class="section-sub" style="max-width:520px;margin:0 auto;">Halo! Aku <b>Benu</b>, robot asistant kamu. Yuk, kita jelajahi dunia Variabel, Tipe Data, If-Else, dan Loop bareng-bareng — seru dan nggak sesulit yang kamu kira, kok!</p>
+    <div class="cover-badges">
+      <span class="badge">📘 Informatika (Pemrograman & AI) &amp; KA</span>
+      <span class="badge">🎓 Kelas VIII (8) SMP</span>
+      <span class="badge">🐍 Python</span>
+    </div>
+
+    <div class="identity-form">
+      <h3 style="font-size:1.05rem;text-align:center;">Isi Dulu, Yuk!</h3>
+      <label for="inpNama">Nama Kamu</label>
+      <input type="text" id="inpNama" placeholder="Tulis namamu di sini...">
+      <label for="inpKelas">Kelas</label>
+      <input type="text" id="inpKelas" placeholder="Contoh: VIII-A">
+    </div>
+
+    <button class="btn btn-primary" onclick="goToSection('section-tujuan')" style="font-size:1.05rem;padding:15px 34px;">Mulai Belajar 🚀</button>
+
+    <div class="kodi-tip" style="max-width:560px;margin:26px auto 0;text-align:left;">
+      <div class="kodi-avatar"><svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg"><line x1="50" y1="18" x2="50" y2="4" stroke="#2D3B55" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="4" r="6" fill="#FFC93C" stroke="#2D3B55" stroke-width="2.5"/><rect x="14" y="18" width="72" height="58" rx="18" fill="#E3F5FF" stroke="#2D3B55" stroke-width="4"/><circle cx="36" cy="46" r="9.5" fill="#FFFFFF" stroke="#2D3B55" stroke-width="2.5"/><circle cx="64" cy="46" r="9.5" fill="#FFFFFF" stroke="#2D3B55" stroke-width="2.5"/><circle cx="37" cy="47" r="4" fill="#2D3B55"/><circle cx="65" cy="47" r="4" fill="#2D3B55"/><path d="M38 62 Q50 70 62 62" stroke="#2D3B55" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>
+      <div class="tip-text"><b>Tentang media ini:</b> 'Website' ini berisi materi inti, contoh soal yang dibahas langkah demi langkah, aktivitas interaktif, kuis 15 soal, sampai sesi refleksi di akhir. Kamu bisa pindah bagian lewat tombol angka di atas, atau tekan tombol "Lanjut" di setiap halaman.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 2: TUJUAN PEMBELAJARAN ============ -->
+<section class="section" id="section-tujuan">
+  <div class="section-head">
+    <div class="eyebrow-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--blue)"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+      <h2>Tujuan Pembelajaran</h2>
+    </div>
+    <p class="section-sub">Sebelum mulai, enaknya kita tahu dulu mau menuju ke mana. Ini dia target belajar kita hari ini — anggap saja ini "peta harta karun" supaya kamu tahu apa yang akan kamu kuasai di akhir perjalanan.</p>
+  </div>
+
+  <div class="panel">
+    <ul class="obj-list">
+      <li><span class="obj-icon">1</span><p>Siswa dapat <b>mengenal dan memahami konsep Variabel</b> dalam bahasa pemrograman Python — apa itu variabel, dan bagaimana cara membuatnya.</p></li>
+      <li><span class="obj-icon">2</span><p>Siswa dapat <b>mengidentifikasi berbagai Tipe Data</b> dalam Python (angka bulat, angka desimal, teks, dan benar/salah).</p></li>
+      <li><span class="obj-icon">3</span><p>Siswa dapat <b>memahami dan menerapkan struktur If-Else (percabangan)</b> untuk membuat program yang bisa "mengambil keputusan".</p></li>
+      <li><span class="obj-icon">4</span><p>Siswa dapat <b>memahami dan menerapkan Loop (perulangan)</b> untuk membuat program mengulang sebuah proses tanpa menulis kode berkali-kali.</p></li>
+      <li><span class="obj-icon">5</span><p>Siswa dapat <b>memahami manfaat konsep pemrograman ini untuk kehidupan nyata</b>, dan menyadari bahwa keempatnya bukan cuma teori, tapi ada di banyak teknologi yang kita pakai sehari-hari.</p></li>
+    </ul>
+
+    <div class="kodi-tip">
+      <div class="kodi-avatar"><svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg"><line x1="50" y1="18" x2="50" y2="4" stroke="#2D3B55" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="4" r="6" fill="#FFC93C" stroke="#2D3B55" stroke-width="2.5"/><rect x="14" y="18" width="72" height="58" rx="18" fill="#E3F5FF" stroke="#2D3B55" stroke-width="4"/><circle cx="36" cy="46" r="9.5" fill="#FFFFFF" stroke="#2D3B55" stroke-width="2.5"/><circle cx="64" cy="46" r="9.5" fill="#FFFFFF" stroke="#2D3B55" stroke-width="2.5"/><circle cx="37" cy="47" r="4" fill="#2D3B55"/><circle cx="65" cy="47" r="4" fill="#2D3B55"/><path d="M38 62 Q50 70 62 62" stroke="#2D3B55" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>
+      <div class="tip-text"><b>Kenapa 4 konsep ini penting?</b> Variabel dan Tipe Data adalah "bahan dasar" setiap program — semua data yang diolah komputer disimpan lewat variabel. Sementara If-Else dan Loop adalah "otak" program: If-Else membuat program bisa mengambil keputusan, dan Loop membuat program bisa bekerja berulang kali secara otomatis. Hampir semua aplikasi yang kamu pakai — game, media sosial, aplikasi belanja online — dibangun dari kombinasi 4 hal ini!</div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-outline" onclick="goToSection('section-cover')">← Kembali</button>
+    <button class="btn btn-primary" onclick="goToSection('section-materi')">Lanjut ke Materi Inti →</button>
+  </div>
+</section>
+
+<!-- ============ SECTION 3: MATERI INTI ============ -->
+<section class="section" id="section-materi">
+  <div class="section-head">
+    <div class="eyebrow-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--blue)"><path d="M4 9L12 5L20 9V19C20 20 19 21 18 21H6C5 21 4 20 4 19V9Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M4 9L12 13L20 9" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 13V21" stroke="currentColor" stroke-width="2"/></svg>
+      <h2>Materi Inti</h2>
+    </div>
+    <p class="section-sub">Ini bagian paling penting! Pelajari satu per satu lewat tab di bawah. Setiap topik ada penjelasan, contoh kode yang dibahas langkah demi langkah, dan kaitannya dengan kehidupan sehari-hari.</p>
+  </div>
+
+  <div class="tabbar" id="materiTabbar">
+    <button class="tab-btn active" data-tab="tab-variabel"><svg viewBox="0 0 24 24" fill="none"><path d="M4 9L12 5L20 9V19C20 20 19 21 18 21H6C5 21 4 20 4 19V9Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M4 9L12 13L20 9" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Variabel</button>
+    <button class="tab-btn" data-tab="tab-tipedata"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3L21 8L12 13L3 8L12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M3 12L12 17L21 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Tipe Data</button>
+    <button class="tab-btn" data-tab="tab-ifelse"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3V21" stroke="currentColor" stroke-width="2"/><path d="M12 7H19L17 9.5L19 12H12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 12H5L7 14.5L5 17H12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>If-Else</button>
+    <button class="tab-btn" data-tab="tab-loop"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12C4 7.58 7.58 4 12 4C15 4 17.5 5.5 19 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 3V8H14" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M20 12C20 16.42 16.42 20 12 20C9 20 6.5 18.5 5 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M5 21V16H10" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Loop</button>
+    <button class="tab-btn" data-tab="tab-manfaat"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18H15M10 21H14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 3C8.5 3 6 5.7 6 9C6 11.2 7.2 12.7 8.2 13.8C8.8 14.5 9 15 9 15.5V16H15V15.5C15 15 15.2 14.5 15.8 13.8C16.8 12.7 18 11.2 18 9C18 5.7 15.5 3 12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Manfaat</button>
+  </div>
+
+  <!-- TAB: VARIABEL -->
+  <div class="tab-panel active" id="tab-variabel">
+    <div class="panel">
+      <h3>Apa itu Variabel?</h3>
+      <p style="margin-top:8px;line-height:1.6;">Bayangkan variabel seperti <b>kotak penyimpanan berlabel</b>. Kamu bisa taruh sesuatu di dalam kotak itu, memberinya nama, lalu mengambil atau mengganti isinya kapan saja. Dalam Python, variabel bekerja persis seperti itu: sebuah <b>nama</b> yang menyimpan sebuah <b>nilai</b>, supaya nilai tersebut bisa dipakai lagi nanti di kode kita.</p>
+
+      <div class="code-block">
+        <div class="code-titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-filename">sintaks_variabel.py</span></div>
+        <pre><span class="cm"># Cara membuat variabel di Python</span>
+nama_variabel <span class="kw">=</span> nilai</pre>
+      </div>
+
+      <div class="mini-box">
+        <b>Aturan penamaan variabel di Python:</b>
+        <ul style="margin:8px 0 0 20px;line-height:1.7;">
+          <li>Tidak boleh diawali dengan angka (contoh: <code>2skor</code> ❌, <code>skor2</code> ✅)</li>
+          <li>Tidak boleh mengandung spasi (gunakan garis bawah "_" sebagai gantinya)</li>
+          <li>Bersifat <i>case-sensitive</i> — <code>Nilai</code> dan <code>nilai</code> dianggap variabel yang berbeda!</li>
+          <li>Sebaiknya menggunakan nama yang jelas maknanya, misalnya <code>umur</code>, bukan <code>x</code></li>
+        </ul>
+      </div>
+
+      <h3 style="margin-top:20px;">Contoh &amp; Pembahasan</h3>
+      <div class="code-block">
+        <div class="code-titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-filename">contoh_variabel.py</span></div>
+        <pre>nama <span class="kw">=</span> <span class="st">"Budi"</span>
+umur <span class="kw">=</span> <span class="nu">13</span>
+tinggi_badan <span class="kw">=</span> <span class="nu">150.5</span>
+
+<span class="cm">print</span>(nama)
+<span class="cm">print</span>(umur)</pre>
+        <div class="code-out"><span class="lbl">HASIL (OUTPUT)</span>Budi
+13</div>
+      </div>
+      <p style="line-height:1.6;">Yuk kita bahas: baris pertama membuat variabel <code>nama</code> yang isinya teks <code>"Budi"</code>. Baris kedua membuat variabel <code>umur</code> berisi angka <code>13</code>. Baris ketiga membuat variabel <code>tinggi_badan</code> berisi <code>150.5</code>. Perintah <code>print()</code> di baris terakhir menampilkan isi variabel ke layar — perhatikan, variabel <code>tinggi_badan</code> tidak ditampilkan karena kita tidak memerintahkan <code>print(tinggi_badan)</code>.</p>
+
+      <div class="life-box">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18H15M10 21H14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 3C8.5 3 6 5.7 6 9C6 11.2 7.2 12.7 8.2 13.8C8.8 14.5 9 15 9 15.5V16H15V15.5C15 15 15.2 14.5 15.8 13.8C16.8 12.7 18 11.2 18 9C18 5.7 15.5 3 12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <div class="life-text"><b>Kaitan dengan kehidupan nyata:</b> Setiap kali kamu main gim dan skor kamu bertambah, atau saat aplikasi menyimpan nama profil dan foto kamu — semua itu disimpan dalam variabel di balik layar!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: TIPE DATA -->
+  <div class="tab-panel" id="tab-tipedata">
+    <div class="panel">
+      <h3>Apa itu Tipe Data?</h3>
+      <p style="margin-top:8px;line-height:1.6;">Tipe data adalah <b>jenis</b> dari nilai yang disimpan sebuah variabel. Sama seperti di dunia nyata ada jenis barang yang berbeda (uang, buku, baju), di Python juga ada beberapa jenis data dasar yang perlu kamu kenal:</p>
+
+      <div class="mini-box">
+        <table style="width:100%;border-collapse:collapse;font-size:0.92rem;">
+          <tr style="text-align:left;border-bottom:2px solid var(--navy);"><th style="padding:6px 4px;">Tipe Data</th><th>Kegunaan</th><th>Contoh</th></tr>
+          <tr style="border-bottom:1.5px dashed var(--navy-soft);"><td style="padding:8px 4px;"><b>Integer (int)</b></td><td>Bilangan bulat</td><td><code>10</code>, <code>-5</code>, <code>100</code></td></tr>
+          <tr style="border-bottom:1.5px dashed var(--navy-soft);"><td style="padding:8px 4px;"><b>Float</b></td><td>Bilangan desimal</td><td><code>3.14</code>, <code>0.5</code></td></tr>
+          <tr style="border-bottom:1.5px dashed var(--navy-soft);"><td style="padding:8px 4px;"><b>String (str)</b></td><td>Teks / kalimat</td><td><code>"Halo"</code></td></tr>
+          <tr><td style="padding:8px 4px;"><b>Boolean (bool)</b></td><td>Benar / Salah</td><td><code>True</code>, <code>False</code></td></tr>
+        </table>
+      </div>
+
+      <p style="line-height:1.6;">Untuk mengecek tipe data sebuah variabel, Python punya fungsi bawaan bernama <code>type()</code>.</p>
+
+      <h3 style="margin-top:20px;">Contoh &amp; Pembahasan</h3>
+      <div class="code-block">
+        <div class="code-titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-filename">contoh_tipe_data.py</span></div>
+        <pre>skor <span class="kw">=</span> <span class="nu">100</span>
+harga <span class="kw">=</span> <span class="nu">15000.50</span>
+julukan <span class="kw">=</span> <span class="st">"Sang Juara"</span>
+menang <span class="kw">=</span> <span class="nu">True</span>
+
+<span class="cm">print</span>(<span class="cm">type</span>(skor))
+<span class="cm">print</span>(<span class="cm">type</span>(harga))
+<span class="cm">print</span>(<span class="cm">type</span>(julukan))
+<span class="cm">print</span>(<span class="cm">type</span>(menang))</pre>
+        <div class="code-out"><span class="lbl">HASIL (OUTPUT)</span>&lt;class 'int'&gt;
+&lt;class 'float'&gt;
+&lt;class 'str'&gt;
+&lt;class 'bool'&gt;</div>
+      </div>
+      <p style="line-height:1.6;">Perhatikan hasilnya: <code>skor</code> (angka bulat) dikenali sebagai <code>int</code>, <code>harga</code> (ada koma desimal) sebagai <code>float</code>, <code>julukan</code> (teks berkutip) sebagai <code>str</code>, dan <code>menang</code> (True/False) sebagai <code>bool</code>. Python otomatis mengenali tipe data — kamu tidak perlu menuliskannya secara manual!</p>
+
+      <div class="kodi-tip">
+        <div class="kodi-avatar"><svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg"><line x1="50" y1="18" x2="50" y2="4" stroke="#2D3B55" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="4" r="6" fill="#FFC93C" stroke="#2D3B55" stroke-width="2.5"/><rect x="14" y="18" width="72" height="58" rx="18" fill="#E3F5FF" stroke="#2D3B55" stroke-width="4"/><circle cx="36" cy="46" r="9.5" fill="#FFFFFF" stroke="#2D3B55" stroke-width="2.5"/><circle cx="64" cy="46" r="9.5" fill="#FFFFFF" stroke="#2D3B55" stroke-width="2.5"/><circle cx="37" cy="47" r="4" fill="#2D3B55"/><circle cx="65" cy="47" r="4" fill="#2D3B55"/><path d="M38 62 Q50 70 62 62" stroke="#2D3B55" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>
+        <div class="tip-text"><b>Hati-hati:</b> <code>"13"</code> (pakai tanda kutip) itu String, beda dengan <code>13</code> (tanpa kutip) yang Integer! Ini kesalahan yang paling sering dilakukan pemula, jadi ingat baik-baik ya.</div>
+      </div>
+
+      <div class="life-box">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18H15M10 21H14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 3C8.5 3 6 5.7 6 9C6 11.2 7.2 12.7 8.2 13.8C8.8 14.5 9 15 9 15.5V16H15V15.5C15 15 15.2 14.5 15.8 13.8C16.8 12.7 18 11.2 18 9C18 5.7 15.5 3 12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <div class="life-text"><b>Kaitan dengan kehidupan nyata:</b> Formulir pendaftaran sekolah punya kolom dengan "tipe" berbeda: nama (teks/String), umur (angka/Integer), tinggi badan (desimal/Float), dan "sudah lunas SPP?" (benar-salah/Boolean).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: IF-ELSE -->
+  <div class="tab-panel" id="tab-ifelse">
+    <div class="panel">
+      <h3>Apa itu If-Else (Percabangan)?</h3>
+      <p style="margin-top:8px;line-height:1.6;">If-Else adalah struktur yang membuat program bisa <b>mengambil keputusan</b> berdasarkan suatu kondisi — persis seperti kita sehari-hari. Contoh: <i>"Jika hujan, maka aku bawa payung. Kalau tidak, aku pakai topi biasa."</i> Itulah cara berpikir if-else!</p>
+
+      <div class="code-block">
+        <div class="code-titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-filename">sintaks_ifelse.py</span></div>
+        <pre><span class="kw">if</span> kondisi:
+    <span class="cm"># dijalankan jika kondisi benar</span>
+<span class="kw">else</span>:
+    <span class="cm"># dijalankan jika kondisi salah</span></pre>
+      </div>
+
+      <div class="mini-box">
+        <b>Operator perbandingan yang sering dipakai:</b>
+        <ul style="margin:8px 0 0 20px;line-height:1.8;">
+          <li><code>==</code> sama dengan &nbsp;•&nbsp; <code>!=</code> tidak sama dengan</li>
+          <li><code>&gt;</code> lebih besar &nbsp;•&nbsp; <code>&lt;</code> lebih kecil</li>
+          <li><code>&gt;=</code> lebih besar / sama dengan &nbsp;•&nbsp; <code>&lt;=</code> lebih kecil / sama dengan</li>
+        </ul>
+      </div>
+
+      <div class="kodi-tip">
+        <div class="kodi-avatar"><svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg"><line x1="50" y1="18" x2="50" y2="4" stroke="#2D3B55" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="4" r="6" fill="#FFC93C" stroke="#2D3B55" stroke-width="2.5"/><rect x="14" y="18" width="72" height="58" rx="18" fill="#E3F5FF" stroke="#2D3B55" stroke-width="4"/><circle cx="36" cy="46" r="9.5" fill="#FFFFFF" stroke="#2D3B55" stroke-width="2.5"/><circle cx="64" cy="46" r="9.5" fill="#FFFFFF" stroke="#2D3B55" stroke-width="2.5"/><circle cx="37" cy="47" r="4" fill="#2D3B55"/><circle cx="65" cy="47" r="4" fill="#2D3B55"/><path d="M38 62 Q50 70 62 62" stroke="#2D3B55" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>
+        <div class="tip-text"><b>Awas jebakan!</b> Tanda <code>=</code> (satu) itu untuk MENGISI nilai ke variabel, sedangkan <code>==</code> (dua) untuk MEMBANDINGKAN dua nilai. Jangan sampai ketuker!</div>
+      </div>
+
+      <h3 style="margin-top:20px;">Contoh &amp; Pembahasan</h3>
+      <div class="code-block">
+        <div class="code-titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-filename">cek_kelulusan.py</span></div>
+        <pre>nilai <span class="kw">=</span> <span class="nu">80</span>
+
+<span class="kw">if</span> nilai <span class="kw">&gt;=</span> <span class="nu">75</span>:
+    <span class="cm">print</span>(<span class="st">"Selamat, kamu LULUS!"</span>)
+<span class="kw">else</span>:
+    <span class="cm">print</span>(<span class="st">"Semangat, coba lagi ya!"</span>)</pre>
+        <div class="code-out"><span class="lbl">HASIL (OUTPUT)</span>Selamat, kamu LULUS!</div>
+      </div>
+      <p style="line-height:1.6;">Pembahasan: Python mengecek kondisi <code>nilai &gt;= 75</code>. Karena <code>nilai</code> berisi <code>80</code>, dan <code>80 &gt;= 75</code> bernilai <b>benar</b>, maka blok kode di bawah <code>if</code> yang dijalankan, dan blok <code>else</code> dilewati begitu saja. Kalau <code>nilai</code> misalnya <code>60</code>, maka program akan mencetak "Semangat, coba lagi ya!" karena kondisinya salah.</p>
+
+      <div class="life-box">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18H15M10 21H14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 3C8.5 3 6 5.7 6 9C6 11.2 7.2 12.7 8.2 13.8C8.8 14.5 9 15 9 15.5V16H15V15.5C15 15 15.2 14.5 15.8 13.8C16.8 12.7 18 11.2 18 9C18 5.7 15.5 3 12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <div class="life-text"><b>Kaitan dengan kehidupan nyata:</b> Lampu lalu lintas ("jika merah, berhenti; jika hijau, jalan"), mesin ATM ("jika PIN benar, buka; jika salah, tolak"), dan sistem menang-kalah pada gim semuanya menggunakan logika if-else.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: LOOP -->
+  <div class="tab-panel" id="tab-loop">
+    <div class="panel">
+      <h3>Apa itu Loop (Perulangan)?</h3>
+      <p style="margin-top:8px;line-height:1.6;">Loop digunakan untuk <b>mengulang</b> sebuah blok kode beberapa kali, tanpa harus menulis ulang kode yang sama berkali-kali. Bayangkan kalau kamu harus mengabsen 30 siswa satu per satu secara manual dengan menulis kode berbeda untuk tiap siswa — melelahkan, kan? Dengan loop, cukup satu blok kode yang diulang otomatis.</p>
+
+      <div class="code-block">
+        <div class="code-titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-filename">sintaks_loop.py</span></div>
+        <pre><span class="cm"># perulangan FOR (jumlah pasti)</span>
+<span class="kw">for</span> i <span class="kw">in</span> range(<span class="nu">5</span>):
+    <span class="cm">print</span>(i)
+
+<span class="cm"># perulangan WHILE (selama kondisi benar)</span>
+<span class="kw">while</span> kondisi:
+    <span class="cm"># kode yang diulang</span></pre>
+      </div>
+      <p style="line-height:1.6;"><code>range(5)</code> menghasilkan urutan angka <code>0, 1, 2, 3, 4</code> — jadi ada 5 angka, dan perulangan berjalan sebanyak 5 kali.</p>
+
+      <h3 style="margin-top:20px;">Contoh &amp; Pembahasan</h3>
+      <div class="code-block">
+        <div class="code-titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-filename">total_belanja.py</span></div>
+        <pre>total <span class="kw">=</span> <span class="nu">0</span>
+<span class="kw">for</span> angka <span class="kw">in</span> range(<span class="nu">1</span>, <span class="nu">6</span>):
+    total <span class="kw">=</span> total <span class="kw">+</span> angka
+
+<span class="cm">print</span>(<span class="st">"Total:"</span>, total)</pre>
+        <div class="code-out"><span class="lbl">HASIL (OUTPUT)</span>Total: 15</div>
+      </div>
+      <p style="line-height:1.6;">Pembahasan: <code>range(1, 6)</code> menghasilkan angka <code>1, 2, 3, 4, 5</code>. Setiap kali loop berjalan, nilai <code>angka</code> ditambahkan ke <code>total</code>. Jadi: 0+1=1, 1+2=3, 3+3=6, 6+4=10, 10+5=15. Pola "menjumlahkan sedikit demi sedikit" ini disebut <b>akumulasi</b>, dan sangat mirip dengan cara kasir menjumlahkan total belanjaanmu satu per satu di kasir minimarket!</p>
+
+      <div class="kodi-tip">
+        <div class="kodi-avatar"><svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg"><line x1="50" y1="18" x2="50" y2="4" stroke="#2D3B55" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="4" r="6" fill="#FFC93C" stroke="#2D3B55" stroke-width="2.5"/><rect x="14" y="18" width="72" height="58" rx="18" fill="#E3F5FF" stroke="#2D3B55" stroke-width="4"/><circle cx="36" cy="46" r="9.5" fill="#FFFFFF" stroke="#2D3B55" stroke-width="2.5"/><circle cx="64" cy="46" r="9.5" fill="#FFFFFF" stroke="#2D3B55" stroke-width="2.5"/><circle cx="37" cy="47" r="4" fill="#2D3B55"/><circle cx="65" cy="47" r="4" fill="#2D3B55"/><path d="M38 62 Q50 70 62 62" stroke="#2D3B55" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>
+        <div class="tip-text"><b>Hati-hati dengan while:</b> Pada perulangan <code>while</code>, jangan lupa mengubah nilai variabel kondisinya di dalam loop. Kalau lupa, program akan berputar terus tanpa henti — ini disebut <i>infinite loop</i>!</div>
+      </div>
+
+      <div class="life-box">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18H15M10 21H14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 3C8.5 3 6 5.7 6 9C6 11.2 7.2 12.7 8.2 13.8C8.8 14.5 9 15 9 15.5V16H15V15.5C15 15 15.2 14.5 15.8 13.8C16.8 12.7 18 11.2 18 9C18 5.7 15.5 3 12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <div class="life-text"><b>Kaitan dengan kehidupan nyata:</b> Aplikasi absensi sekolah yang mengecek nama semua siswa satu per satu, lagu yang diputar "repeat", dan mesin cuci yang mengulang siklus bilas beberapa kali — semuanya menerapkan konsep loop.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: MANFAAT -->
+  <div class="tab-panel" id="tab-manfaat">
+    <div class="panel">
+      <h3>Kenapa Belajar Konsep Ini Penting?</h3>
+      <p style="margin-top:8px;line-height:1.6;">Variabel, Tipe Data, If-Else, dan Loop adalah <b>4 bahan dasar</b> yang dipakai untuk membangun hampir semua program komputer — mulai dari kalkulator sederhana sampai game dan aplikasi kecerdasan artifisial (KA). Tapi manfaatnya nggak berhenti di situ saja.</p>
+
+      <div class="mini-box">
+        <b>Manfaat belajar konsep dasar pemrograman:</b>
+        <ul style="margin:8px 0 0 20px;line-height:1.8;">
+          <li><b>Melatih berpikir logis dan sistematis</b> (computational thinking) — memecah masalah besar jadi langkah-langkah kecil</li>
+          <li><b>Melatih ketelitian</b> — satu tanda baca salah saja, program bisa error</li>
+          <li><b>Membantu memahami teknologi</b> di sekitar kita, bukan cuma jadi penggunanya saja</li>
+          <li><b>Membuka peluang</b> di banyak bidang: sains, seni digital, bisnis, hingga karier di masa depan</li>
+        </ul>
+      </div>
+
+      <p style="line-height:1.6;">Menariknya, kemampuan berpikir logis ini juga berguna di luar coding — misalnya saat menyusun jadwal belajar, merencanakan uang jajan, atau menyelesaikan masalah sehari-hari selangkah demi selangkah.</p>
+
+      <div class="life-box">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18H15M10 21H14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 3C8.5 3 6 5.7 6 9C6 11.2 7.2 12.7 8.2 13.8C8.8 14.5 9 15 9 15.5V16H15V15.5C15 15 15.2 14.5 15.8 13.8C16.8 12.7 18 11.2 18 9C18 5.7 15.5 3 12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <div class="life-text"><b>Contoh nyata:</b> Aplikasi ojek online mencocokkan penumpang dan pengemudi (if-else + loop untuk mengecek banyak pengemudi terdekat), aplikasi belanja menghitung total harga (variabel + loop), dan filter foto di media sosial mengubah tampilan gambar berdasarkan pilihanmu (if-else).</div>
+      </div>
+
+      <div class="kodi-tip">
+        <div class="kodi-avatar"><svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg"><line x1="50" y1="18" x2="50" y2="4" stroke="#2D3B55" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="4" r="6" fill="#FFC93C" stroke="#2D3B55" stroke-width="2.5"/><rect x="14" y="18" width="72" height="58" rx="18" fill="#E3F5FF" stroke="#2D3B55" stroke-width="4"/><circle cx="36" cy="46" r="9.5" fill="#FFFFFF" stroke="#2D3B55" stroke-width="2.5"/><circle cx="64" cy="46" r="9.5" fill="#FFFFFF" stroke="#2D3B55" stroke-width="2.5"/><circle cx="37" cy="47" r="4" fill="#2D3B55"/><circle cx="65" cy="47" r="4" fill="#2D3B55"/><path d="M38 62 Q50 70 62 62" stroke="#2D3B55" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>
+        <div class="tip-text">Yuk, lanjut ke bagian <b>Aktivitas Interaktif</b> untuk mencoba langsung konsep-konsep ini dengan tanganmu sendiri!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-outline" onclick="goToSection('section-tujuan')">← Kembali</button>
+    <button class="btn btn-primary" onclick="goToSection('section-aktivitas')">Lanjut ke Aktivitas →</button>
+  </div>
+</section>
+
+<!-- ============ SECTION 4: AKTIVITAS INTERAKTIF ============ -->
+<section class="section" id="section-aktivitas">
+  <div class="section-head">
+    <div class="eyebrow-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--blue)"><path d="M4 12C4 7.58 7.58 4 12 4C15 4 17.5 5.5 19 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 3V8H14" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M20 12C20 16.42 16.42 20 12 20C9 20 6.5 18.5 5 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M5 21V16H10" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      <h2>Aktivitas Interaktif</h2>
+    </div>
+    <p class="section-sub">Sekarang giliran kamu praktik langsung! Pilih salah satu aktivitas di bawah ini. Tenang, ini bukan kuis bernilai — anggap saja ini "taman bermain" untuk melatih pemahamanmu.</p>
+  </div>
+
+  <div class="activity-nav" id="activityNav">
+    <button class="tab-btn active" data-act="act-kotak">📦 Kotak Ajaib Variabel</button>
+    <button class="tab-btn" data-act="act-ifelse">🚦 Simulator If-Else</button>
+    <button class="tab-btn" data-act="act-loop">🤖 Petualangan Loop</button>
+    <button class="tab-btn" data-act="act-cocok">🧩 Cocokkan Istilah</button>
+  </div>
+
+  <!-- ACTIVITY 1: KOTAK AJAIB VARIABEL -->
+  <div class="activity-panel active" id="act-kotak">
+    <div class="panel">
+      <h3>📦 Kotak Ajaib Variabel</h3>
+      <p style="margin-top:8px;line-height:1.6;">Ketik sebuah <b>nilai</b> seperti yang akan kamu tulis langsung di kode Python (misalnya: <code>25</code>, <code>3.14</code>, <code>Halo</code>, atau <code>True</code>), lalu tekan tombol untuk melihat nilai itu "disimpan" ke kotak variabel dan ketahuan tipe datanya!</p>
+      <div class="varbox-input-row">
+        <input type="text" id="varboxInput" placeholder="Contoh: 25 atau Halo atau True">
+        <button class="btn btn-primary" onclick="runVarBox()">Simpan ke Variabel! ✨</button>
+      </div>
+      <div class="varbox-result" id="varboxResult">
+        <div class="box-3d" id="varboxBox">?</div>
+        <div>
+          <div class="type-tag" id="varboxTag">Tipe Data</div>
+        </div>
+      </div>
+      <div class="kodi-tip" id="varboxNote" style="display:none;">
+        <div class="kodi-avatar"><svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg"><line x1="50" y1="18" x2="50" y2="4" stroke="#2D3B55" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="4" r="6" fill="#FFC93C" stroke="#2D3B55" stroke-width="2.5"/><rect x="14" y="18" width="72" height="58" rx="18" fill="#E3F5FF" stroke="#2D3B55" stroke-width="4"/><circle cx="36" cy="46" r="9.5" fill="#FFFFFF" stroke="#2D3B55" stroke-width="2.5"/><circle cx="64" cy="46" r="9.5" fill="#FFFFFF" stroke="#2D3B55" stroke-width="2.5"/><circle cx="37" cy="47" r="4" fill="#2D3B55"/><circle cx="65" cy="47" r="4" fill="#2D3B55"/><path d="M38 62 Q50 70 62 62" stroke="#2D3B55" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>
+        <div class="tip-text" id="varboxNoteText"></div>
+      </div>
+      <div class="life-box" style="margin-top:20px;">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18H15M10 21H14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 3C8.5 3 6 5.7 6 9C6 11.2 7.2 12.7 8.2 13.8C8.8 14.5 9 15 9 15.5V16H15V15.5C15 15 15.2 14.5 15.8 13.8C16.8 12.7 18 11.2 18 9C18 5.7 15.5 3 12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <div class="life-text"><b>Kenapa aktivitas ini penting?</b> Mengenali tipe data dengan cepat akan membantumu menghindari error paling umum pemula Python, misalnya mencoba menjumlahkan angka dengan teks.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTIVITY 2: SIMULATOR IF-ELSE -->
+  <div class="activity-panel" id="act-ifelse">
+    <div class="panel">
+      <h3>🚦 Simulator If-Else</h3>
+      <p style="margin-top:8px;line-height:1.6;">Pilih salah satu skenario, masukkan nilainya, lalu tekan "Jalankan Program!" untuk melihat jalur mana yang diambil program — persis seperti program if-else sungguhan.</p>
+      <div class="scenario-tabs" id="scenarioTabs">
+        <button class="tab-btn active" data-sc="sc-lulus">Cek Kelulusan</button>
+        <button class="tab-btn" data-sc="sc-film">Rating Film</button>
+        <button class="tab-btn" data-sc="sc-cuaca">Kondisi Cuaca</button>
+      </div>
+
+      <div class="scenario-panel" id="sc-lulus" style="display:block;">
+        <div class="code-block"><div class="code-titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-filename">cek_kelulusan.py</span></div><pre><span class="kw">if</span> nilai <span class="kw">&gt;=</span> <span class="nu">75</span>:
+    <span class="cm">print</span>(<span class="st">"LULUS"</span>)
+<span class="kw">else</span>:
+    <span class="cm">print</span>(<span class="st">"TIDAK LULUS"</span>)</pre></div>
+        <div class="scenario-input"><label>nilai =</label><input type="number" id="inputLulus" placeholder="0-100" value="80"><button class="btn btn-yellow" onclick="runScenario('lulus')">Jalankan Program! ▶</button></div>
+      </div>
+      <div class="scenario-panel" id="sc-film" style="display:none;">
+        <div class="code-block"><div class="code-titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-filename">cek_usia_film.py</span></div><pre><span class="kw">if</span> usia <span class="kw">&gt;=</span> <span class="nu">13</span>:
+    <span class="cm">print</span>(<span class="st">"Boleh nonton"</span>)
+<span class="kw">else</span>:
+    <span class="cm">print</span>(<span class="st">"Belum boleh nonton"</span>)</pre></div>
+        <div class="scenario-input"><label>usia =</label><input type="number" id="inputFilm" placeholder="tahun" value="12"><button class="btn btn-yellow" onclick="runScenario('film')">Jalankan Program! ▶</button></div>
+      </div>
+      <div class="scenario-panel" id="sc-cuaca" style="display:none;">
+        <div class="code-block"><div class="code-titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-filename">cek_cuaca.py</span></div><pre><span class="kw">if</span> cuaca <span class="kw">==</span> <span class="st">"Hujan"</span>:
+    <span class="cm">print</span>(<span class="st">"Bawa payung!"</span>)
+<span class="kw">else</span>:
+    <span class="cm">print</span>(<span class="st">"Pakai topi, cuaca cerah!"</span>)</pre></div>
+        <div class="scenario-input"><label>cuaca =</label><select id="inputCuaca"><option value="Hujan">Hujan</option><option value="Cerah">Cerah</option></select><button class="btn btn-yellow" onclick="runScenario('cuaca')">Jalankan Program! ▶</button></div>
+      </div>
+
+      <div class="flow-diagram">
+        <div class="flow-node cond" id="flowCond">kondisi ?</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-branches">
+          <div class="flow-branch yes" id="flowYes"><div class="flow-node">BENAR</div></div>
+          <div class="flow-branch no" id="flowNo"><div class="flow-node">SALAH</div></div>
+        </div>
+      </div>
+      <div class="console-out" id="scenarioOutput">&gt;&gt;&gt; menunggu program dijalankan...</div>
+
+      <div class="life-box" style="margin-top:20px;">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18H15M10 21H14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 3C8.5 3 6 5.7 6 9C6 11.2 7.2 12.7 8.2 13.8C8.8 14.5 9 15 9 15.5V16H15V15.5C15 15 15.2 14.5 15.8 13.8C16.8 12.7 18 11.2 18 9C18 5.7 15.5 3 12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <div class="life-text"><b>Kenapa aktivitas ini penting?</b> Mengubah-ubah nilai input dan melihat bagaimana jalur program berubah membantumu memahami bahwa if-else itu tentang membuat KEPUTUSAN, bukan sekadar hafalan sintaks.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTIVITY 3: PETUALANGAN LOOP -->
+  <div class="activity-panel" id="act-loop">
+    <div class="panel">
+      <h3>🤖 Petualangan Perulangan</h3>
+      <p style="margin-top:8px;line-height:1.6;">Bantu Kodi berjalan melewati kode <code>for i in range(5):</code>! Tekan "Langkah Berikutnya" untuk menjalankan satu putaran loop, atau tekan "Otomatis" untuk melihat semuanya berjalan sendiri.</p>
+      <div class="code-block"><div class="code-titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-filename">petualangan_loop.py</span></div><pre><span class="kw">for</span> i <span class="kw">in</span> range(<span class="nu">5</span>):
+    <span class="cm">print</span>(<span class="st">"Langkah ke-"</span>, i)
+    kumpulkan_bintang()</pre></div>
+
+      <div class="loop-track">
+        <div class="loop-robot" id="loopRobot">🤖</div>
+        <div class="loop-path" id="loopPath"></div>
+      </div>
+      <div class="loop-info">
+        <div class="loop-stat">Nilai i sekarang: <span id="loopI">belum mulai</span></div>
+        <div class="loop-stat">⭐ Bintang terkumpul: <span id="loopStars">0</span></div>
+      </div>
+      <div class="btn-row" style="margin-top:14px;">
+        <button class="btn btn-outline" onclick="resetLoop()">🔄 Ulangi dari Awal</button>
+        <button class="btn btn-yellow" onclick="autoLoop()">▶ Otomatis</button>
+        <button class="btn btn-primary" onclick="stepLoop()">Langkah Berikutnya →</button>
+      </div>
+
+      <div class="life-box" style="margin-top:20px;">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18H15M10 21H14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 3C8.5 3 6 5.7 6 9C6 11.2 7.2 12.7 8.2 13.8C8.8 14.5 9 15 9 15.5V16H15V15.5C15 15 15.2 14.5 15.8 13.8C16.8 12.7 18 11.2 18 9C18 5.7 15.5 3 12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <div class="life-text"><b>Kenapa aktivitas ini penting?</b> Memvisualisasikan nilai <code>i</code> yang berubah setiap langkah membantumu "melihat" apa yang sebenarnya terjadi di balik layar saat sebuah loop berjalan.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTIVITY 4: COCOKKAN ISTILAH -->
+  <div class="activity-panel" id="act-cocok">
+    <div class="panel">
+      <h3>🧩 Cocokkan Istilah!</h3>
+      <p style="margin-top:8px;line-height:1.6;">Klik satu istilah di kolom kiri, lalu klik penjelasan yang cocok di kolom kanan. Cocokkan semua pasangan untuk menyelesaikan tantangan ini!</p>
+      <div class="match-grid" id="matchGrid">
+        <div class="match-col" id="matchColLeft"></div>
+        <div class="match-col" id="matchColRight"></div>
+      </div>
+      <p id="matchComplete" style="display:none;text-align:center;font-weight:700;color:var(--green-dark);margin-top:14px;">🎉 Keren! Semua pasangan berhasil dicocokkan!</p>
+      <div class="btn-row"><button class="btn btn-outline" onclick="setupMatchGame()">🔄 Acak Ulang</button></div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-outline" onclick="goToSection('section-materi')">← Kembali</button>
+    <button class="btn btn-primary" onclick="goToSection('section-kuis')">Lanjut ke Kuis →</button>
+  </div>
+</section>
+
+<!-- ============ SECTION 5: KUIS / EVALUASI ============ -->
+<section class="section" id="section-kuis">
+  <div class="section-head">
+    <div class="eyebrow-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--blue)"><rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 8H16M8 12H16M8 16H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <h2>Kuis / Evaluasi</h2>
+    </div>
+    <p class="section-sub">Saatnya menguji pemahamanmu lewat 15 soal seru (10 pilihan ganda + 5 benar-salah). Jangan takut salah — di setiap soal ada penjelasan yang bisa bikin kamu makin paham, apapun jawabanmu!</p>
+  </div>
+
+  <div id="quizIntro" class="panel" style="text-align:center;">
+    <p style="line-height:1.6;">Total ada <b>15 soal</b>. Setiap soal hanya bisa dijawab sekali, lalu penjelasannya langsung muncul. Yuk, tarik napas dulu, lalu mulai!</p>
+    <button class="btn btn-primary" onclick="startQuiz()" style="margin-top:10px;">Mulai Kuis! 🎯</button>
+  </div>
+
+  <div id="quizPlay" style="display:none;">
+    <div class="quiz-progress-text" id="quizProgressText">Soal 1 dari 15</div>
+    <div class="progressbar-track" style="margin-bottom:18px;"><div class="progressbar-fill" id="quizProgressFill" style="width:0%;"></div></div>
+    <div class="quiz-card">
+      <div class="quiz-question" id="quizQuestionText"></div>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="feedback-panel" id="quizFeedback">
+        <svg id="quizFeedbackIcon" viewBox="0 0 24 24" fill="none"></svg>
+        <div><div class="fb-title" id="quizFeedbackTitle"></div><div class="fb-text" id="quizFeedbackText"></div></div>
+      </div>
+    </div>
+    <div class="btn-row" style="justify-content:flex-end;">
+      <button class="btn btn-yellow" id="quizNextBtn" style="display:none;" onclick="nextQuestion()">Lanjut →</button>
+    </div>
+  </div>
+
+  <div id="quizResult" style="display:none;">
+    <div class="panel quiz-result">
+      <div class="cover-mascot" style="width:110px;height:110px;" id="resultMascot"></div>
+      <h3 id="resultTitle" style="font-size:1.4rem;margin-bottom:6px;"></h3>
+      <div class="score-ring" id="scoreRing"><div class="score-ring-inner"><span class="big" id="scoreBig">0/15</span><span class="small">SKOR KAMU</span></div></div>
+      <p id="resultMessage" style="max-width:480px;margin:0 auto;line-height:1.6;"></p>
+      <div class="btn-row" style="justify-content:center;">
+        <button class="btn btn-outline" onclick="startQuiz()">🔄 Ulangi Kuis</button>
+        <button class="btn btn-primary" onclick="goToSection('section-refleksi')">Lanjut ke Refleksi →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-outline" onclick="goToSection('section-aktivitas')">← Kembali</button>
+    <span></span>
+  </div>
+</section>
+
+<!-- ============ SECTION 6: UMPAN BALIK & REFLEKSI ============ -->
+<section class="section" id="section-refleksi">
+  <div class="section-head">
+    <div class="eyebrow-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--blue)"><path d="M12 21C12 21 4 15.5 4 9.5C4 6.5 6.5 4 9.5 4C11 4 12 5 12 5C12 5 13 4 14.5 4C17.5 4 20 6.5 20 9.5C20 15.5 12 21 12 21Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      <h2>Umpan Balik &amp; Refleksi</h2>
+    </div>
+    <p class="section-sub">Sampai juga di bagian penutup! Refleksi ini bukan buat dinilai, tapi supaya kamu sadar sudah belajar apa saja hari ini — dan supaya gurumu tahu bagian mana yang masih perlu dijelaskan ulang.</p>
+  </div>
+
+  <div class="panel">
+    <h3>Seberapa paham kamu tentang materi hari ini secara keseluruhan?</h3>
+    <div class="emoji-scale" id="emojiScale">
+      <button class="emoji-btn" data-val="1">😕</button>
+      <button class="emoji-btn" data-val="2">😐</button>
+      <button class="emoji-btn" data-val="3">🙂</button>
+      <button class="emoji-btn" data-val="4">😄</button>
+      <button class="emoji-btn" data-val="5">🤩</button>
+    </div>
+
+    <h3 style="margin-top:20px;">Bagian mana yang paling kamu suka?</h3>
+    <div class="pick-row" id="pickFavorite">
+      <button class="pick-chip" data-val="Variabel">Variabel</button>
+      <button class="pick-chip" data-val="Tipe Data">Tipe Data</button>
+      <button class="pick-chip" data-val="If-Else">If-Else</button>
+      <button class="pick-chip" data-val="Loop">Loop</button>
+      <button class="pick-chip" data-val="Aktivitas Interaktif">Aktivitas Interaktif</button>
+      <button class="pick-chip" data-val="Kuis">Kuis</button>
+    </div>
+
+    <h3 style="margin-top:20px;">Tuliskan satu hal baru yang kamu pelajari hari ini!</h3>
+    <textarea class="reflect-textarea" id="reflectLearned" placeholder="Contoh: Aku baru tahu kalau if-else itu ternyata dipakai di lampu lalu lintas..."></textarea>
+
+    <h3 style="margin-top:20px;">Ada pertanyaan atau hal yang masih membingungkan?</h3>
+    <textarea class="reflect-textarea" id="reflectQuestion" placeholder="Tulis di sini, lalu tanyakan ke gurumu ya!"></textarea>
+
+    <div class="kodi-tip">
+      <div class="kodi-avatar"><svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg"><line x1="50" y1="18" x2="50" y2="4" stroke="#2D3B55" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="4" r="6" fill="#FFC93C" stroke="#2D3B55" stroke-width="2.5"/><rect x="14" y="18" width="72" height="58" rx="18" fill="#E3F5FF" stroke="#2D3B55" stroke-width="4"/><circle cx="36" cy="46" r="9.5" fill="#FFFFFF" stroke="#2D3B55" stroke-width="2.5"/><circle cx="64" cy="46" r="9.5" fill="#FFFFFF" stroke="#2D3B55" stroke-width="2.5"/><circle cx="37" cy="47" r="4" fill="#2D3B55"/><circle cx="65" cy="47" r="4" fill="#2D3B55"/><path d="M38 62 Q50 70 62 62" stroke="#2D3B55" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>
+      <div class="tip-text"><b>Kenapa refleksi penting?</b> Menuliskan apa yang sudah kamu pahami (dan yang belum) adalah salah satu cara belajar paling efektif — ini membantu otakmu "menyimpan" pelajaran lebih lama, dan membantu gurumu menyesuaikan pelajaran berikutnya.</div>
+    </div>
+
+    <div class="btn-row" style="justify-content:center;">
+      <button class="btn btn-green" onclick="finishReflection()" style="font-size:1.05rem;padding:15px 34px;">Selesai! Tampilkan Sertifikat 🏆</button>
+    </div>
+  </div>
+
+  <div id="printArea" style="display:none;">
+    <div class="certificate" id="certificateBox">
+      <div class="cert-medal"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="6" fill="#FFC93C" stroke="#2D3B55" stroke-width="2"/><path d="M9 14L7 21L12 18L17 21L15 14" fill="#2FA8E8" stroke="#2D3B55" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      <p style="letter-spacing:0.5px;color:var(--navy-soft);font-weight:700;font-size:0.85rem;">SERTIFIKAT PETUALANGAN KODING</p>
+      <p style="margin-top:6px;">Diberikan kepada:</p>
+      <div class="cert-name" id="certName">Nama Siswa</div>
+      <p style="color:var(--navy-soft);font-size:0.9rem;" id="certKelas">Kelas -</p>
+      <p style="margin-top:14px;line-height:1.6;">Telah berhasil menyelesaikan petualangan belajar <b>Variabel, Tipe Data, If-Else, dan Loop</b> dalam bahasa pemrograman Python, dengan skor kuis <b id="certScore">-</b>.</p>
+      <p style="margin-top:16px;color:var(--navy-soft);font-size:0.85rem;">Tetap semangat belajar koding, ya! — Kodi 🤖</p>
+    </div>
+    <div class="btn-row" style="justify-content:center;">
+      <button class="btn btn-outline" onclick="window.print()">🖨️ Cetak / Simpan sebagai PDF</button>
+    </div>
+    <p class="footer-note">Terima kasih sudah menyelesaikan Petualangan Koding Bersama Python! Terus berlatih, ya — sampai jumpa di petualangan koding berikutnya. 🚀</p>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-outline" onclick="goToSection('section-kuis')">← Kembali</button>
+    <span></span>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<script>
+/* ============================================================
+   STATE
+============================================================ */
+const state = {
+  currentSection: 'section-cover',
+  sectionOrder: ['section-cover','section-tujuan','section-materi','section-aktivitas','section-kuis','section-refleksi'],
+  quizIndex: 0,
+  quizScore: 0,
+  quizAnswered: false
+};
+
+/* ============================================================
+   SOUND EFFECTS (Web Audio API — tidak perlu file audio eksternal)
+============================================================ */
+let audioCtx;
+function getAudioCtx(){
+  if(!audioCtx){
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if(!AC) return null;
+    audioCtx = new AC();
+  }
+  if(audioCtx.state === 'suspended'){ audioCtx.resume(); }
+  return audioCtx;
+}
+function playTone(freq, duration, type, vol){
+  try{
+    const ctx = getAudioCtx();
+    if(!ctx) return;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type || 'sine';
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(vol || 0.15, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(); osc.stop(ctx.currentTime + duration);
+  }catch(e){ /* audio tidak tersedia, lanjut tanpa suara */ }
+}
+function sfxClick(){ playTone(600,0.07,'triangle',0.09); }
+function sfxCorrect(){
+  playTone(523.25,0.13,'sine',0.16);
+  setTimeout(()=>playTone(659.25,0.13,'sine',0.16),100);
+  setTimeout(()=>playTone(783.99,0.22,'sine',0.16),200);
+}
+function sfxWrong(){
+  playTone(300,0.15,'sawtooth',0.09);
+  setTimeout(()=>playTone(220,0.25,'sawtooth',0.09),120);
+}
+function sfxComplete(){
+  [523.25,659.25,783.99,1046.5].forEach((n,i)=>setTimeout(()=>playTone(n,0.25,'sine',0.17), i*140));
+}
+function sfxWhoosh(){ playTone(200,0.12,'sine',0.06); }
+
+/* ============================================================
+   CONFETTI
+============================================================ */
+function launchConfetti(){
+  const canvas = document.createElement('canvas');
+  canvas.className = 'confetti-canvas';
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  const colors = ['#2FA8E8','#FFC93C','#5FCB79','#FF6F6F'];
+  const particles = [];
+  for(let i=0;i<110;i++){
+    particles.push({
+      x: Math.random()*canvas.width,
+      y: -20 - Math.random()*canvas.height*0.4,
+      r: 4+Math.random()*6,
+      color: colors[Math.floor(Math.random()*colors.length)],
+      speedY: 2+Math.random()*3,
+      speedX: -2+Math.random()*4,
+      rot: Math.random()*360,
+      rotSpeed: -8+Math.random()*16
+    });
+  }
+  let frame = 0;
+  function animate(){
+    frame++;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+      p.y += p.speedY; p.x += p.speedX; p.rot += p.rotSpeed;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
+      ctx.fillStyle = p.color; ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*0.6);
+      ctx.restore();
+    });
+    if(frame < 150){ requestAnimationFrame(animate); } else { canvas.remove(); }
+  }
+  animate();
+  window.addEventListener('resize', ()=>{ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }, {once:true});
+}
+
+/* ============================================================
+   NAVIGATION
+============================================================ */
+function goToSection(id){
+  sfxWhoosh();
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  state.currentSection = id;
+  updateNav();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function updateNav(){
+  const idx = state.sectionOrder.indexOf(state.currentSection);
+  document.querySelectorAll('.step-dot').forEach((dot,i)=>{
+    dot.classList.remove('active','done');
+    if(i === idx) dot.classList.add('active');
+    else if(i < idx) dot.classList.add('done');
+  });
+  const pct = ((idx+1)/state.sectionOrder.length)*100;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+document.getElementById('stepNav').addEventListener('click', function(e){
+  const btn = e.target.closest('.step-dot');
+  if(btn){ sfxClick(); goToSection(btn.dataset.target); }
+});
+
+/* ============================================================
+   TABS: MATERI INTI
+============================================================ */
+document.getElementById('materiTabbar').addEventListener('click', function(e){
+  const btn = e.target.closest('.tab-btn');
+  if(!btn) return;
+  sfxClick();
+  document.querySelectorAll('#materiTabbar .tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#section-materi .tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById(btn.dataset.tab).classList.add('active');
+});
+
+/* ============================================================
+   ACTIVITY NAV
+============================================================ */
+document.getElementById('activityNav').addEventListener('click', function(e){
+  const btn = e.target.closest('.tab-btn');
+  if(!btn) return;
+  sfxClick();
+  document.querySelectorAll('#activityNav .tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.activity-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById(btn.dataset.act).classList.add('active');
+});
+</script>
+
+<script>
+/* ============================================================
+   AKTIVITAS 1: KOTAK AJAIB VARIABEL
+============================================================ */
+function detectType(raw){
+  const val = raw.trim();
+  if(val === 'True' || val === 'False') return 'bool';
+  if(/^-?\d+$/.test(val)) return 'int';
+  if(/^-?\d*\.\d+$/.test(val)) return 'float';
+  return 'str';
+}
+function runVarBox(){
+  const input = document.getElementById('varboxInput');
+  const raw = input.value;
+  if(raw.trim() === ''){ input.focus(); return; }
+  sfxClick();
+  const type = detectType(raw);
+  const box = document.getElementById('varboxBox');
+  const tag = document.getElementById('varboxTag');
+  const note = document.getElementById('varboxNote');
+  const noteText = document.getElementById('varboxNoteText');
+  box.classList.remove('show'); tag.classList.remove('show');
+  const info = {
+    int:   {label:'Integer (bilangan bulat)', cls:'type-int',  note:'Ini <b>Integer</b> karena berupa angka bulat tanpa tanda kutip dan tanpa koma desimal.'},
+    float: {label:'Float (bilangan desimal)', cls:'type-float',note:'Ini <b>Float</b> karena berupa angka yang punya koma desimal.'},
+    str:   {label:'String (teks)',            cls:'type-str',  note:'Ini <b>String</b>. Ingat, kalau ditulis di kode Python sungguhan, teks harus diapit tanda kutip, contoh: <code>nama = "'+raw.trim()+'"</code>.'},
+    bool:  {label:'Boolean (benar/salah)',    cls:'type-bool', note:'Ini <b>Boolean</b> karena nilainya persis <code>True</code> atau <code>False</code>.'}
+  };
+  const d = info[type];
+  setTimeout(()=>{
+    box.textContent = raw.trim();
+    tag.textContent = d.label;
+    tag.className = 'type-tag show ' + d.cls;
+    box.className = 'box-3d show';
+    noteText.innerHTML = d.note;
+    note.style.display = 'flex';
+    sfxCorrect();
+  }, 60);
+}
+
+/* ============================================================
+   AKTIVITAS 2: SIMULATOR IF-ELSE
+============================================================ */
+document.getElementById('scenarioTabs').addEventListener('click', function(e){
+  const btn = e.target.closest('.tab-btn');
+  if(!btn) return;
+  sfxClick();
+  document.querySelectorAll('#scenarioTabs .tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.scenario-panel').forEach(p=>p.style.display='none');
+  document.getElementById(btn.dataset.sc).style.display='block';
+  resetFlow();
+});
+function resetFlow(){
+  document.getElementById('flowYes').classList.remove('active');
+  document.getElementById('flowNo').classList.remove('active');
+  document.getElementById('scenarioOutput').textContent = '>>> menunggu program dijalankan...';
+}
+function runScenario(kind){
+  sfxClick();
+  let condTrue, condLabel, outTrue, outFalse;
+  if(kind === 'lulus'){
+    const nilai = parseFloat(document.getElementById('inputLulus').value) || 0;
+    condTrue = nilai >= 75; condLabel = 'nilai >= 75 → ' + nilai + ' >= 75';
+    outTrue = 'LULUS'; outFalse = 'TIDAK LULUS';
+  } else if(kind === 'film'){
+    const usia = parseFloat(document.getElementById('inputFilm').value) || 0;
+    condTrue = usia >= 13; condLabel = 'usia >= 13 → ' + usia + ' >= 13';
+    outTrue = 'Boleh nonton'; outFalse = 'Belum boleh nonton';
+  } else {
+    const cuaca = document.getElementById('inputCuaca').value;
+    condTrue = (cuaca === 'Hujan'); condLabel = 'cuaca == "Hujan" → "' + cuaca + '" == "Hujan"';
+    outTrue = 'Bawa payung!'; outFalse = 'Pakai topi, cuaca cerah!';
+  }
+  document.getElementById('flowCond').textContent = condLabel;
+  document.getElementById('flowYes').classList.toggle('active', condTrue);
+  document.getElementById('flowNo').classList.toggle('active', !condTrue);
+  document.getElementById('scenarioOutput').textContent = '>>> ' + (condTrue ? outTrue : outFalse);
+  condTrue ? sfxCorrect() : sfxWrong();
+}
+
+/* ============================================================
+   AKTIVITAS 3: PETUALANGAN LOOP
+============================================================ */
+const LOOP_TOTAL = 5;
+let loopStep = -1;
+let loopAutoTimer = null;
+function renderLoopPath(){
+  const path = document.getElementById('loopPath');
+  path.innerHTML = '';
+  for(let i=0;i<LOOP_TOTAL;i++){
+    const cell = document.createElement('div');
+    cell.className = 'loop-cell' + (i < loopStep ? ' filled' : '') + (i === loopStep ? ' current' : '');
+    cell.textContent = 'i='+i;
+    path.appendChild(cell);
+  }
+  const robot = document.getElementById('loopRobot');
+  const pos = Math.max(loopStep,0) * 66 + 16;
+  robot.style.left = pos + 'px';
+  document.getElementById('loopI').textContent = loopStep < 0 ? 'belum mulai' : (loopStep >= LOOP_TOTAL ? 'selesai' : loopStep);
+  document.getElementById('loopStars').textContent = Math.max(0, Math.min(loopStep+1, LOOP_TOTAL));
+}
+function stepLoop(){
+  sfxClick();
+  if(loopStep >= LOOP_TOTAL - 1){
+    if(loopStep === LOOP_TOTAL - 1){ loopStep = LOOP_TOTAL; renderLoopPath(); sfxComplete(); launchConfetti(); }
+    return;
+  }
+  loopStep++;
+  renderLoopPath();
+}
+function resetLoop(){
+  sfxClick();
+  clearInterval(loopAutoTimer); loopAutoTimer = null;
+  loopStep = -1;
+  renderLoopPath();
+}
+function autoLoop(){
+  sfxClick();
+  clearInterval(loopAutoTimer);
+  loopAutoTimer = setInterval(()=>{
+    if(loopStep >= LOOP_TOTAL){ clearInterval(loopAutoTimer); return; }
+    stepLoop();
+  }, 700);
+}
+renderLoopPath();
+
+/* ============================================================
+   AKTIVITAS 4: COCOKKAN ISTILAH
+============================================================ */
+const matchData = [
+  {term:'Variabel', desc:'Kotak penyimpanan bernama yang menyimpan sebuah nilai'},
+  {term:'Tipe Data', desc:'Jenis nilai yang disimpan, misalnya angka, teks, atau benar/salah'},
+  {term:'If-Else', desc:'Struktur yang membuat program mengambil keputusan berdasarkan kondisi'},
+  {term:'Loop', desc:'Struktur yang mengulang sebuah blok kode beberapa kali'},
+  {term:'Integer', desc:'Tipe data untuk bilangan bulat, contohnya 10 atau -5'}
+];
+let matchSelectedTerm = null;
+let matchSelectedDesc = null;
+let matchSolved = 0;
+function shuffleArr(arr){ return arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(v=>v[1]); }
+function setupMatchGame(){
+  matchSelectedTerm = null; matchSelectedDesc = null; matchSolved = 0;
+  document.getElementById('matchComplete').style.display = 'none';
+  const left = document.getElementById('matchColLeft');
+  const right = document.getElementById('matchColRight');
+  left.innerHTML=''; right.innerHTML='';
+  matchData.forEach((d,i)=>{
+    const b = document.createElement('button');
+    b.className = 'match-card'; b.textContent = d.term; b.dataset.idx = i;
+    b.onclick = ()=>selectMatch('term', i, b);
+    left.appendChild(b);
+  });
+  shuffleArr(matchData.map((d,i)=>i)).forEach(i=>{
+    const b = document.createElement('button');
+    b.className = 'match-card'; b.textContent = matchData[i].desc; b.dataset.idx = i;
+    b.onclick = ()=>selectMatch('desc', i, b);
+    right.appendChild(b);
+  });
+}
+function selectMatch(kind, idx, el){
+  if(el.classList.contains('correct') || el.classList.contains('matched-hide')) return;
+  sfxClick();
+  if(kind === 'term'){
+    document.querySelectorAll('#matchColLeft .match-card').forEach(c=>c.classList.remove('selected'));
+    el.classList.add('selected');
+    matchSelectedTerm = {idx, el};
+  } else {
+    document.querySelectorAll('#matchColRight .match-card').forEach(c=>c.classList.remove('selected'));
+    el.classList.add('selected');
+    matchSelectedDesc = {idx, el};
+  }
+  if(matchSelectedTerm && matchSelectedDesc){
+    if(matchSelectedTerm.idx === matchSelectedDesc.idx){
+      matchSelectedTerm.el.classList.remove('selected'); matchSelectedTerm.el.classList.add('correct');
+      matchSelectedDesc.el.classList.remove('selected'); matchSelectedDesc.el.classList.add('correct');
+      sfxCorrect(); matchSolved++;
+      if(matchSolved === matchData.length){
+        document.getElementById('matchComplete').style.display='block'; sfxComplete(); launchConfetti();
+      }
+    } else {
+      matchSelectedTerm.el.classList.add('wrong-flash');
+      matchSelectedDesc.el.classList.add('wrong-flash');
+      sfxWrong();
+      setTimeout(()=>{
+        matchSelectedTerm.el.classList.remove('selected','wrong-flash');
+        matchSelectedDesc.el.classList.remove('selected','wrong-flash');
+      }, 500);
+    }
+    matchSelectedTerm = null; matchSelectedDesc = null;
+  }
+}
+setupMatchGame();
+</script>
+
+<script>
+/* ============================================================
+   DATA KUIS — 15 SOAL (10 Pilihan Ganda + 5 Benar-Salah)
+============================================================ */
+const quizData = [
+  { type:'mc', question:'Variabel dalam Python berfungsi untuk...',
+    options:['Mencetak tulisan ke layar','Menyimpan nilai atau data','Menghapus program','Membuat suara'],
+    correct:1,
+    fbCorrect:'Betul sekali! Variabel memang seperti kotak penyimpanan untuk menyimpan nilai yang bisa dipakai lagi nanti.',
+    fbWrong:'Yuk coba lagi! Variabel digunakan untuk menyimpan nilai atau data, seperti kotak berlabel yang menyimpan sesuatu di dalamnya.' },
+  { type:'mc', question:'Manakah penulisan nama variabel yang benar dalam Python?',
+    options:['2nilai','nilai siswa','nilai_siswa','nilai-siswa'],
+    correct:2,
+    fbCorrect:'Tepat! Nama variabel di Python tidak boleh mengandung spasi atau tanda hubung, jadi garis bawah (_) adalah pilihan yang pas untuk memisahkan kata.',
+    fbWrong:'Belum tepat. Ingat, nama variabel tidak boleh diawali angka, tidak boleh ada spasi, dan tidak boleh pakai tanda hubung (-). Jawaban yang benar adalah nilai_siswa.' },
+  { type:'tf', question:'Nama variabel di Python boleh diawali dengan angka, misalnya "1nilai".',
+    correct:false,
+    fbCorrect:'Tepat sekali! Nama variabel di Python memang tidak boleh diawali dengan angka.',
+    fbWrong:'Belum tepat. Faktanya, nama variabel di Python tidak boleh diawali dengan angka, jadi pernyataan ini SALAH.' },
+  { type:'mc', question:'Perhatikan kode: umur = 13. Apa tipe data dari variabel umur tersebut?',
+    options:['String','Float','Integer','Boolean'],
+    correct:2,
+    fbCorrect:'Keren! 13 adalah bilangan bulat tanpa koma, jadi tipe datanya adalah Integer (int).',
+    fbWrong:'Belum tepat. Karena 13 adalah bilangan bulat tanpa desimal, tipe datanya adalah Integer (int), bukan yang lain.' },
+  { type:'mc', question:'Manakah dari berikut ini yang merupakan contoh tipe data String?',
+    options:['100','3.14','"Halo Dunia"','True'],
+    correct:2,
+    fbCorrect:'Benar! Teks yang diapit tanda kutip seperti "Halo Dunia" adalah tipe data String.',
+    fbWrong:'Coba cek lagi. String adalah tipe data berupa teks yang ditulis di antara tanda kutip, seperti "Halo Dunia".' },
+  { type:'tf', question:'Tipe data Boolean hanya memiliki dua nilai, yaitu True dan False.',
+    correct:true,
+    fbCorrect:'Betul! Boolean memang hanya mengenal dua nilai: True (benar) dan False (salah).',
+    fbWrong:'Coba dicek lagi. Pernyataan ini sebenarnya BENAR — tipe data Boolean memang hanya memiliki dua nilai, True dan False.' },
+  { type:'mc', question:'Perhatikan kode: nilai = 80, lalu if nilai >= 75: print("Lulus") else: print("Tidak Lulus"). Apa yang akan dicetak?',
+    options:['Lulus','Tidak Lulus','80','Error'],
+    correct:0,
+    fbCorrect:'Tepat sekali! Karena nilai (80) lebih besar atau sama dengan 75, program menjalankan blok if dan mencetak "Lulus".',
+    fbWrong:'Yuk perhatikan lagi. Karena nilai 80 memenuhi syarat >= 75, program masuk ke blok if dan mencetak "Lulus".' },
+  { type:'mc', question:'Simbol apa yang digunakan dalam Python untuk memeriksa apakah dua nilai SAMA DENGAN?',
+    options:['=','==','!=','>='],
+    correct:1,
+    fbCorrect:'Betul! Tanda == dipakai untuk membandingkan kesamaan dua nilai, sedangkan = dipakai untuk mengisi nilai ke variabel.',
+    fbWrong:'Hampir tepat. Tanda = hanya untuk mengisi nilai ke variabel. Untuk membandingkan apakah dua nilai sama, kita pakai tanda ==.' },
+  { type:'tf', question:'Struktur if-else digunakan untuk mengulang kode beberapa kali.',
+    correct:false,
+    fbCorrect:'Tepat! If-else digunakan untuk membuat keputusan/percabangan, sedangkan yang mengulang kode adalah loop (perulangan).',
+    fbWrong:'Belum tepat. If-else digunakan untuk membuat percabangan/keputusan berdasarkan kondisi, bukan untuk mengulang kode, jadi pernyataan ini SALAH.' },
+  { type:'mc', question:'Struktur kontrol yang digunakan untuk mengulang suatu blok kode beberapa kali disebut...',
+    options:['Variabel','Tipe Data','Percabangan (If-Else)','Perulangan (Loop)'],
+    correct:3,
+    fbCorrect:'Benar banget! Perulangan (loop) dipakai supaya kita tidak perlu menulis kode yang sama berulang-ulang.',
+    fbWrong:'Belum tepat. Struktur untuk mengulang kode disebut Perulangan atau Loop, contohnya for dan while.' },
+  { type:'mc', question:'Perhatikan kode: for i in range(3): print("Halo"). Berapa kali kata "Halo" akan dicetak?',
+    options:['1 kali','2 kali','3 kali','4 kali'],
+    correct:2,
+    fbCorrect:'Tepat! range(3) menghasilkan urutan 0, 1, 2 sehingga perulangan berjalan sebanyak 3 kali.',
+    fbWrong:'Coba dihitung lagi. range(3) berarti perulangan berjalan untuk nilai 0, 1, dan 2 — jadi totalnya 3 kali.' },
+  { type:'tf', question:'Perulangan "for i in range(4)" akan menjalankan kode di dalamnya sebanyak 4 kali.',
+    correct:true,
+    fbCorrect:'Betul! range(4) menghasilkan 4 nilai (0,1,2,3), jadi perulangan tersebut berjalan sebanyak 4 kali.',
+    fbWrong:'Coba dicek lagi. range(4) menghasilkan 4 nilai yaitu 0,1,2,3, sehingga perulangan itu benar berjalan sebanyak 4 kali — pernyataan ini sebenarnya BENAR.' },
+  { type:'mc', question:'Manakah contoh penerapan konsep PERCABANGAN (if-else) dalam kehidupan sehari-hari?',
+    options:['Menghitung jumlah siswa satu per satu','Lampu lalu lintas yang berubah berdasarkan warna (jika merah maka berhenti, jika hijau maka jalan)','Menyimpan nama di kontak HP','Memutar lagu favorit berulang kali'],
+    correct:1,
+    fbCorrect:'Tepat sekali! Lampu lalu lintas adalah contoh percabangan (if-else) karena keputusan berhenti/jalan diambil berdasarkan suatu kondisi (warna lampu).',
+    fbWrong:'Coba dipikirkan lagi. Lampu lalu lintas adalah contoh percabangan (if-else), karena keputusan diambil berdasarkan kondisi tertentu (warna lampu yang menyala).' },
+  { type:'mc', question:'Manfaat mempelajari konsep dasar pemrograman (variabel, tipe data, percabangan, perulangan) bagi kehidupan nyata adalah...',
+    options:['Membuat kita jago bermain gim saja','Melatih berpikir logis dan sistematis dalam menyelesaikan masalah','Hanya berguna untuk yang ingin jadi programmer','Tidak ada manfaatnya untuk kehidupan sehari-hari'],
+    correct:1,
+    fbCorrect:'Betul sekali! Belajar coding melatih kemampuan berpikir logis (computational thinking) yang berguna di banyak bidang, tidak cuma coding.',
+    fbWrong:'Yuk, dipikirkan lagi. Belajar konsep dasar pemrograman melatih cara berpikir logis dan sistematis yang bermanfaat untuk memecahkan masalah di berbagai bidang kehidupan, bukan cuma buat programmer.' },
+  { type:'tf', question:'Belajar konsep pemrograman dasar seperti variabel dan perulangan tidak ada hubungannya dengan kehidupan nyata.',
+    correct:false,
+    fbCorrect:'Betul, kamu paham banget! Konsep pemrograman dasar justru sangat berkaitan dengan kehidupan nyata, misalnya melatih logika dan ditemukan di banyak aplikasi sehari-hari.',
+    fbWrong:'Yuk, dipikirkan lagi. Konsep pemrograman dasar sangat berkaitan dengan kehidupan nyata — melatih logika berpikir dan mendasari banyak teknologi yang kita pakai sehari-hari, jadi pernyataan ini SALAH.' }
+];
+
+/* ============================================================
+   LOGIKA KUIS
+============================================================ */
+function startQuiz(){
+  sfxClick();
+  state.quizIndex = 0; state.quizScore = 0; state.quizAnswered = false;
+  document.getElementById('quizIntro').style.display = 'none';
+  document.getElementById('quizResult').style.display = 'none';
+  document.getElementById('quizPlay').style.display = 'block';
+  renderQuestion();
+}
+function renderQuestion(){
+  const q = quizData[state.quizIndex];
+  state.quizAnswered = false;
+  document.getElementById('quizProgressText').textContent = 'Soal ' + (state.quizIndex+1) + ' dari ' + quizData.length;
+  document.getElementById('quizProgressFill').style.width = ((state.quizIndex)/quizData.length*100) + '%';
+  document.getElementById('quizQuestionText').textContent = q.question;
+  document.getElementById('quizFeedback').classList.remove('show','correct','wrong');
+  document.getElementById('quizNextBtn').style.display = 'none';
+  const optWrap = document.getElementById('quizOptions');
+  optWrap.innerHTML = '';
+  if(q.type === 'mc'){
+    const letters = ['A','B','C','D'];
+    q.options.forEach((opt,i)=>{
+      const b = document.createElement('button');
+      b.className = 'opt-btn';
+      b.innerHTML = '<span class="opt-letter">'+letters[i]+'</span><span>'+opt+'</span>';
+      b.onclick = ()=>answerQuiz(i === q.correct, b, i);
+      optWrap.appendChild(b);
+    });
+  } else {
+    ['BENAR','SALAH'].forEach((label,i)=>{
+      const val = (i === 0);
+      const b = document.createElement('button');
+      b.className = 'opt-btn tf-btn';
+      b.textContent = label;
+      b.onclick = ()=>answerQuiz(val === q.correct, b, i);
+      optWrap.appendChild(b);
+    });
+  }
+}
+function answerQuiz(isCorrect, btnEl, chosenIdx){
+  if(state.quizAnswered) return;
+  state.quizAnswered = true;
+  const q = quizData[state.quizIndex];
+  const allBtns = document.querySelectorAll('#quizOptions .opt-btn');
+  allBtns.forEach(b=>b.disabled = true);
+  if(q.type === 'mc'){
+    allBtns[q.correct].classList.add('correct-answer');
+    if(!isCorrect) btnEl.classList.add('wrong-answer');
+  } else {
+    if(isCorrect){ btnEl.classList.add('correct-answer'); }
+    else {
+      btnEl.classList.add('wrong-answer');
+      const correctIdx = q.correct ? 0 : 1;
+      allBtns[correctIdx].classList.add('correct-answer');
+    }
+  }
+  const fb = document.getElementById('quizFeedback');
+  const titleEl = document.getElementById('quizFeedbackTitle');
+  const textEl = document.getElementById('quizFeedbackText');
+  const iconEl = document.getElementById('quizFeedbackIcon');
+  if(isCorrect){
+    state.quizScore++;
+    fb.classList.add('show','correct'); fb.classList.remove('wrong');
+    titleEl.textContent = 'Jawaban Benar! 🎉';
+    textEl.textContent = q.fbCorrect;
+    iconEl.innerHTML = '<circle cx="12" cy="12" r="10" fill="#5FCB79"/><path d="M7 12L10.5 15.5L17 9" stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
+    sfxCorrect();
+  } else {
+    fb.classList.add('show','wrong'); fb.classList.remove('correct');
+    titleEl.textContent = 'Belum Tepat, Semangat! 💪';
+    textEl.textContent = q.fbWrong;
+    iconEl.innerHTML = '<circle cx="12" cy="12" r="10" fill="#FFC93C"/><path d="M12 7V13" stroke="#2D3B55" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="16.5" r="1.3" fill="#2D3B55"/>';
+    sfxWrong();
+  }
+  document.getElementById('quizNextBtn').style.display = 'inline-flex';
+  document.getElementById('quizNextBtn').textContent = (state.quizIndex === quizData.length-1) ? 'Lihat Hasil →' : 'Lanjut →';
+}
+function nextQuestion(){
+  sfxClick();
+  if(state.quizIndex < quizData.length - 1){
+    state.quizIndex++;
+    renderQuestion();
+  } else {
+    showQuizResult();
+  }
+}
+function showQuizResult(){
+  document.getElementById('quizPlay').style.display = 'none';
+  document.getElementById('quizResult').style.display = 'block';
+  const score = state.quizScore, total = quizData.length;
+  const pct = Math.round(score/total*100);
+  document.getElementById('scoreRing').style.setProperty('--pct', pct);
+  document.getElementById('scoreBig').textContent = score + '/' + total;
+  let title, msg;
+  if(score >= 13){ title='Luar Biasa! 🏆'; msg='Kamu sudah sangat menguasai Variabel, Tipe Data, If-Else, dan Loop! Lanjutkan semangat belajarnya, ya.'; }
+  else if(score >= 9){ title='Bagus Sekali! 🎉'; msg='Kamu sudah paham sebagian besar materi. Coba review sedikit lagi bagian yang masih kurang pas, lalu kamu akan makin jago.'; }
+  else if(score >= 5){ title='Kerja Bagus Sudah Mencoba! 💪'; msg='Coba pelajari lagi materi di atas pelan-pelan, lalu ulangi kuis ini — kamu pasti bisa lebih baik lagi!'; }
+  else { title='Jangan Menyerah! 🌱'; msg='Coding itu butuh latihan, dan itu wajar banget. Yuk baca ulang materinya sekali lagi, lalu coba kuisnya lagi.'; }
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultMessage').textContent = msg;
+  document.getElementById('resultMascot').innerHTML = mascotSVG(score >= 9 ? 'happy' : 'normal');
+  window.lastQuizScoreText = score + '/' + total;
+  if(score >= 9){ sfxComplete(); launchConfetti(); } else { sfxWrong(); }
+}
+function mascotSVG(mood){
+  const armL = mood==='happy' ? 'rotate(-95 41 116)' : 'rotate(-25 41 116)';
+  const armR = mood==='happy' ? 'rotate(95 159 116)' : 'rotate(-45 159 116)';
+  const mouth = mood==='happy' ? 'M83 82 Q100 100 117 82' : 'M85 84 Q100 94 115 84';
+  return '<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">'
+    + '<line x1="100" y1="35" x2="100" y2="18" stroke="#2D3B55" stroke-width="4" stroke-linecap="round"/>'
+    + '<circle cx="100" cy="14" r="7" fill="#FFC93C" stroke="#2D3B55" stroke-width="3"/>'
+    + '<rect x="60" y="35" width="80" height="65" rx="20" fill="#E3F5FF" stroke="#2D3B55" stroke-width="4"/>'
+    + '<circle cx="82" cy="66" r="11" fill="#FFFFFF" stroke="#2D3B55" stroke-width="3"/>'
+    + '<circle cx="118" cy="66" r="11" fill="#FFFFFF" stroke="#2D3B55" stroke-width="3"/>'
+    + '<circle cx="83" cy="67" r="4.5" fill="#2D3B55"/><circle cx="119" cy="67" r="4.5" fill="#2D3B55"/>'
+    + '<path d="'+mouth+'" stroke="#2D3B55" stroke-width="3.5" fill="none" stroke-linecap="round"/>'
+    + '<circle cx="70" cy="80" r="5" fill="#FFC93C" opacity="0.6"/><circle cx="130" cy="80" r="5" fill="#FFC93C" opacity="0.6"/>'
+    + '<rect x="55" y="100" width="90" height="70" rx="18" fill="#2FA8E8" stroke="#2D3B55" stroke-width="4"/>'
+    + '<circle cx="100" cy="132" r="13" fill="#5FCB79" stroke="#2D3B55" stroke-width="3"/>'
+    + '<path d="M94 132 L98 136 L107 126" stroke="#FFFFFF" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
+    + '<rect x="28" y="108" width="26" height="16" rx="8" fill="#2FA8E8" stroke="#2D3B55" stroke-width="4" transform="'+armL+'"/>'
+    + '<rect x="146" y="108" width="26" height="16" rx="8" fill="#2FA8E8" stroke="#2D3B55" stroke-width="4" transform="'+armR+'"/>'
+    + '<rect x="68" y="168" width="22" height="20" rx="8" fill="#2D3B55"/><rect x="110" y="168" width="22" height="20" rx="8" fill="#2D3B55"/>'
+    + '</svg>';
+}
+</script>
+
+<script>
+/* ============================================================
+   REFLEKSI & SERTIFIKAT
+============================================================ */
+document.getElementById('emojiScale').addEventListener('click', function(e){
+  const btn = e.target.closest('.emoji-btn');
+  if(!btn) return;
+  sfxClick();
+  document.querySelectorAll('.emoji-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+});
+document.getElementById('pickFavorite').addEventListener('click', function(e){
+  const btn = e.target.closest('.pick-chip');
+  if(!btn) return;
+  sfxClick();
+  document.querySelectorAll('#pickFavorite .pick-chip').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+});
+function finishReflection(){
+  sfxComplete();
+  const nama = (document.getElementById('inpNama').value || '').trim();
+  const kelas = (document.getElementById('inpKelas').value || '').trim();
+  document.getElementById('certName').textContent = nama !== '' ? nama : 'Petualang Koding';
+  document.getElementById('certKelas').textContent = 'Kelas ' + (kelas !== '' ? kelas : '-');
+  document.getElementById('certScore').textContent = window.lastQuizScoreText || 'belum mengerjakan kuis';
+  document.getElementById('printArea').style.display = 'block';
+  launchConfetti();
+  document.getElementById('printArea').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* init nav state on load */
+updateNav();
+</script>
+</body>
+</html>

@@ -506,37 +506,153 @@ img {
 
 
 /* =====================================
-   COMING SOON
+   MATERIAL CARDS
 ===================================== */
 
-.coming-soon {
-    max-width: 650px;
+.material-grid {
+    display: flex;
 
-    padding: 45px;
+    gap: 20px;
 
-    border-radius: 18px;
+    overflow-x: auto;
+
+    padding: 5px 5px 20px;
+
+    max-width: 100%;
+
+    scroll-snap-type: x mandatory;
+
+    scrollbar-width: thin;
+}
+
+.material-card {
+    position: relative;
+
+    flex: 0 0 280px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+
+    padding: 25px;
+
+    min-height: 270px;
 
     background: white;
 
-    border: 1px solid #e0eaf5;
+    border: 1px solid #e3e9f0;
 
-    text-align: center;
+    border-radius: 16px;
+
+    transition: 0.25s ease;
+
+    overflow: hidden;
+
+    scroll-snap-align: start;
 }
 
-.coming-icon {
-    font-size: 2.5rem;
+.material-card:hover {
+    transform: translateY(-5px);
 
-    margin-bottom: 12px;
+    border-color: #cbdced;
+
+    box-shadow: 0 15px 35px rgba(28, 48, 77, 0.09);
 }
 
-.coming-soon h3 {
+
+/* Icon */
+
+.material-icon {
+    min-width: 55px;
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    font-size: 1.5rem;
+}
+
+
+/* Content */
+
+.material-content {
+    padding-right: 25px;
+}
+
+.material-category {
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 0.65rem;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    color: #1769d1;
+}
+
+.material-card h3 {
     font-family: "Poppins", sans-serif;
 
-    margin-bottom: 8px;
+    font-size: 1rem;
+
+    line-height: 1.35;
+
+    color: #172033;
+
+    margin-bottom: 7px;
 }
 
-.coming-soon p {
-    color: #6b7280;
+.material-card p {
+    font-size: 0.82rem;
+
+    line-height: 1.5;
+
+    color: #697586;
+}
+
+
+/* Arrow */
+
+.material-arrow {
+    position: absolute;
+
+    right: 20px;
+    bottom: 18px;
+
+    font-size: 1.2rem;
+
+    font-weight: 700;
+
+    color: #1769d1;
+
+    transition: 0.25s ease;
+}
+
+.material-card:hover .material-arrow {
+    transform: translateX(5px);
+}
+
+
+/* =====================================
+   MATERIAL RESPONSIVE
+===================================== */
+
+@media (max-width: 700px) {
+
+    .material-grid {
+        grid-template-columns: 1fr;
+    }
+
 }
 
 
