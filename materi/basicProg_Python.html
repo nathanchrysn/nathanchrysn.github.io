@@ -6,7 +6,7 @@
 <title>Petualangan Koding Bersama Python — Kelas 8 SMP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --blue:#2FA8E8; --blue-dark:#1E7FB8; --blue-light:#E3F5FF;
@@ -332,16 +332,74 @@ button{cursor:pointer;border:none;font-family:'Fredoka',sans-serif;}
   .panel{padding:16px;}
   .flow-branches{gap:14px;}
 }
+
+/* ===== Visual system aligned with the main #Informatika page ===== */
+:root{
+  --blue:#1769d1; --blue-dark:#1155ad; --blue-light:#eef7ff;
+  --yellow:#f4c542; --yellow-dark:#be8d00; --yellow-light:#fff8df;
+  --green:#38a169; --green-dark:#287a4e; --green-light:#effaf3;
+  --red:#dd5b5b; --red-dark:#b84040; --red-light:#fff0f0;
+  --navy:#172033; --navy-soft:#687386; --cream:#f8fafc;
+  --editor:#172033; --editor-line:#263551;
+  --radius-lg:18px; --radius-md:14px; --radius-sm:10px;
+}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:linear-gradient(180deg,#eef7ff 0,#f8fbff 26rem,#f8fafc 100%);
+  color:var(--navy); padding-bottom:24px;
+}
+h1,h2,h3,h4,.font-heading,.topbar-title,.btn{font-family:'Poppins',sans-serif;}
+p,li,label,span,input,textarea,button{font-family:'DM Sans',sans-serif;}
+::selection{background:#cfe6ff;color:var(--navy);}
+.bg-shapes span{opacity:.75;filter:none;}
+.bg-shapes span:nth-child(1){background:#e1f1ff;}.bg-shapes span:nth-child(2){background:#e5f7eb;}
+.bg-shapes span:nth-child(3){background:#edf6ff;}.bg-shapes span:nth-child(4){background:#fff4c9;}
+.bg-shapes span:nth-child(5){background:#e1f1ff;}
+
+.topbar{background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid #e7edf5;padding:0 16px;}
+.topbar-inner{max-width:1150px;min-height:76px;gap:24px;}
+.topbar-title{font-size:1rem;color:var(--navy);font-weight:600;}
+.lesson-brand{display:flex;flex-direction:column;line-height:1.1;text-decoration:none;white-space:nowrap;}
+.lesson-brand-main{font-family:'Poppins',sans-serif;font-size:1.15rem;font-weight:800;color:var(--blue);}
+.lesson-brand-sub{margin-top:4px;color:#6b7280;font-size:.68rem;font-weight:600;}
+.topbar-title svg{display:none;}
+.steps{gap:4px;overflow-x:auto;padding:8px 0;}
+.step-dot{border:0;background:transparent;border-radius:8px;padding:9px 10px;color:var(--navy-soft);font-size:.73rem;box-shadow:none;}
+.step-dot .num{display:none;}
+.step-dot:hover{background:#f1f6fc;color:var(--blue);}
+.step-dot.active{background:#eef5ff;color:var(--blue);border:0;}
+.step-dot.done{background:transparent;color:var(--green-dark);border:0;}
+.progressbar-track{height:3px;max-width:none;margin:0 -16px;border:0;border-radius:0;background:#e7edf5;}
+.progressbar-fill{background:var(--blue);}
+
+.wrap{max-width:1000px;padding:46px 24px 24px;}
+.section-head{margin-bottom:28px;}
+.section-head h2{font-size:clamp(1.55rem,3vw,2.15rem);letter-spacing:-.6px;}
+.section-sub{color:var(--navy-soft);line-height:1.7;}
+.eyebrow-icon{gap:10px;}.eyebrow-icon svg{width:34px;height:34px;}
+.panel,.quiz-card,.identity-form{border:1px solid #e1e9f2;border-radius:var(--radius-lg);box-shadow:0 10px 28px rgba(23,32,51,.07);}
+.panel{padding:26px;margin-bottom:22px;}.panel.blue{background:#f2f8ff;}.panel.yellow{background:#fffaf0;}.panel.green{background:#f2fbf5;}
+.kodi-tip{background:#f5faff;border:1px solid #bdddff;border-radius:var(--radius-md);padding:16px 18px;}
+.kodi-tip .tip-text b{color:var(--blue);}
+.life-box{background:#f2fbf5;border:1px solid #bfe7cc;border-radius:var(--radius-md);}.life-box .life-text b{color:var(--green-dark);}
+.code-block{border:0;border-radius:var(--radius-md);box-shadow:0 8px 22px rgba(23,32,51,.16);}.code-block .code-titlebar{background:var(--editor-line);}
+.btn{border-radius:10px;padding:12px 20px;font-weight:600;box-shadow:none;}.btn:hover{transform:translateY(-1px);}.btn:active{transform:translateY(0);}
+.btn-primary{background:var(--blue);}.btn-primary:hover{background:var(--blue-dark);}.btn-yellow{background:var(--yellow);}.btn-green{background:var(--green);}.btn-outline{border:1px solid #d6e0ec;color:var(--navy);box-shadow:none;}
+.tab-btn,.badge,.loop-stat,.pick-chip{border:1px solid #dce6f1;box-shadow:none;}.tab-btn{border-radius:9px;color:var(--navy-soft);}.tab-btn.active{background:var(--blue);}.mini-box{background:#f8fafc;border:1px solid #dce6f1;}
+.varbox-input-row input,.scenario-input input,.scenario-input select,.reflect-textarea{border:1px solid #cbd8e6;border-radius:9px;}.varbox-input-row input:focus,.scenario-input input:focus,.scenario-input select:focus,.reflect-textarea:focus,.identity-form input:focus{outline:3px solid #dbeeff;border-color:var(--blue);}
+.box-3d,.flow-node,.loop-track,.loop-cell,.match-card,.opt-btn{border-width:1px;}.box-3d{box-shadow:0 5px 0 var(--yellow-dark);}.flow-node{border-color:#ccd9e7;}.flow-node.cond,.loop-track{border-color:#c9e3ff;}.loop-cell{border-color:#cbd8e6;}.match-card{border-color:#d6e1ed;border-radius:10px;}.match-card.selected{background:var(--blue);}.quiz-card{padding:28px;}.opt-btn{background:#fff;border-color:#d7e2ed;border-radius:10px;}.opt-btn:hover:not(:disabled){border-color:var(--blue);background:#f5faff;}.feedback-panel{border-width:1px;}.certificate{border:1px solid #c6ddf4;border-radius:var(--radius-lg);box-shadow:0 10px 28px rgba(23,32,51,.07);}.certificate .cert-name{color:var(--blue);}
+.cover-wrap{padding:12px 0 24px;}.cover-mascot{width:150px;height:150px;}.cover-title{font-family:'Poppins',sans-serif;font-size:clamp(2rem,5vw,3.25rem);letter-spacing:-1.3px;}.cover-title .hl{color:var(--blue);}.cover-badges{margin:18px 0 26px;}.badge{background:#fff;color:var(--navy-soft);border-radius:8px;}.identity-form{padding:24px;}.identity-form input{border:1px solid #cbd8e6;border-radius:9px;}.obj-list li{border:1px solid #dce6f1;border-radius:var(--radius-md);}.obj-list .obj-icon{background:var(--blue);font-family:'Poppins',sans-serif;}.footer-note{border-top:1px solid #dce6f1;}
+@media(max-width:720px){.topbar-inner{min-height:64px;}.lesson-brand-sub{display:none;}.step-dot{padding:8px;}.wrap{padding:30px 16px 20px;}.panel,.quiz-card{padding:20px;}}
 </style>
 </head>
 <body>
 <div class="bg-shapes"><span></span><span></span><span></span><span></span><span></span></div>
 <div class="topbar">
   <div class="topbar-inner">
-    <div class="topbar-title">
-      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect x="55" y="100" width="90" height="70" rx="18" fill="#2FA8E8" stroke="#2D3B55" stroke-width="6"/><rect x="60" y="35" width="80" height="65" rx="20" fill="#E3F5FF" stroke="#2D3B55" stroke-width="6"/><circle cx="82" cy="66" r="11" fill="#FFFFFF" stroke="#2D3B55" stroke-width="4"/><circle cx="118" cy="66" r="11" fill="#FFFFFF" stroke="#2D3B55" stroke-width="4"/><circle cx="83" cy="67" r="5" fill="#2D3B55"/><circle cx="119" cy="67" r="5" fill="#2D3B55"/></svg>
-      <span>Dasar Pemrograman & Python</span>
-    </div>
+    <a class="lesson-brand" href="../index.html" aria-label="Kembali ke halaman utama #Informatika">
+      <span class="lesson-brand-main">#Informatika</span>
+      <span class="lesson-brand-sub">Dasar Pemrograman &amp; Python</span>
+    </a>
     <div class="steps" id="stepNav">
       <button class="step-dot" data-target="section-cover"><span class="num">1</span><span class="step-label">Pembuka</span></button>
       <button class="step-dot" data-target="section-tujuan"><span class="num">2</span><span class="step-label">Tujuan</span></button>
