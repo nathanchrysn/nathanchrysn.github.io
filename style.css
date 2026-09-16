@@ -706,6 +706,130 @@ img {
     font-size: 0.92rem;
 }
 
+.lkpd-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 18px;
+
+    margin-top: 22px;
+}
+
+.lkpd-card {
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 16px;
+
+    min-height: 220px;
+
+    padding: 24px;
+
+    background: white;
+
+    border: 1px solid #e3e9f0;
+
+    border-radius: 16px;
+
+    transition: 0.25s ease;
+}
+
+.lkpd-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #cbdced;
+
+    box-shadow: 0 15px 35px rgba(28, 48, 77, 0.09);
+}
+
+.lkpd-card-icon {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+.kahoot-icon {
+    background: #ffe5e2;
+    color: #e84d3c;
+}
+
+.wayground-icon {
+    background: #e7f0ff;
+    color: #3867d6;
+}
+
+.blooket-icon {
+    background: #fff1c7;
+    color: #d58a00;
+}
+
+.zep-icon {
+    background: #e6f7ec;
+    color: #218b50;
+}
+
+.lkpd-card-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 0.65rem;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    color: #1769d1;
+}
+
+.lkpd-card h3 {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 1rem;
+
+    color: #172033;
+}
+
+.lkpd-card p {
+    margin-top: 7px;
+
+    font-size: 0.82rem;
+    line-height: 1.5;
+
+    color: #697586;
+}
+
+.lkpd-card-arrow {
+    align-self: flex-end;
+
+    margin-top: auto;
+
+    font-size: 1.2rem;
+    font-weight: 700;
+
+    color: #1769d1;
+
+    transition: 0.25s ease;
+}
+
+.lkpd-card:hover .lkpd-card-arrow {
+    transform: translate(4px, -2px);
+}
+
 
 /* =====================================
    ABOUT
@@ -1042,6 +1166,10 @@ footer {
         grid-template-columns: 1fr;
     }
 
+    .lkpd-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .about-grid {
         grid-template-columns: 1fr;
     }
@@ -1093,6 +1221,10 @@ footer {
 
     .lkpd-placeholder {
         flex-direction: column;
+    }
+
+    .lkpd-grid {
+        grid-template-columns: 1fr;
     }
 
 }
