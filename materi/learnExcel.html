@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1769d1" />
+    <title>Excel Explorer — Ayo, Rapikan Data! | #Informatika</title>
+    <link rel="stylesheet" href="learnExcel-style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a class="home-float" href="../index.html" aria-label="Kembali ke halaman utama">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <span>Kembali ke Beranda</span>
+    </a>
+    <header class="topbar">
+      <nav class="nav" aria-label="Navigasi utama">
+        <a class="brand" href="#home" aria-label="#Informatika by @nathanchrysn">
+          <span class="brand-main">#Informatika</span>
+          <span class="brand-sub">by @nathanchrysn</span>
+        </a>
+        <div class="navlinks">
+          <a class="active" href="#home">HOME</a><a href="#belajar">MATERI</a
+          ><a href="#tantangan" id="challengeNav">LATIHAN</a
+          ><button
+            class="sound-toggle"
+            id="soundToggle"
+            type="button"
+            aria-pressed="false"
+          >
+            🔇 Suara: Mati
+          </button>
+        </div>
+      </nav>
+    </header>
+    <main class="wrap" id="home">
+      <section class="hero">
+        <div>
+          <div class="eyebrow">
+            <span class="spark">✦</span> MATERI INFORMATIKA · KELAS 4 SD
+          </div>
+          <h1>
+            Excel Explorer:<br /><span style="color: var(--blue)"
+              >Ayo, Rapikan Data!</span
+            >
+          </h1>
+          <p>
+            Kenali bagian lembar kerja, rapikan tabel, dan gunakan rumus
+            sederhana. Belajar konsepnya, lalu coba simulatornya!
+          </p>
+          <div class="actions">
+            <button class="btn btn-primary" id="startBtn">
+              Mulai Petualangan <span aria-hidden="true">→</span></button
+            ><button class="btn btn-light" id="quickQuizBtn">
+              ⚡ Coba kuis singkat
+            </button>
+          </div>
+        </div>
+        <div
+          class="hero-art"
+          aria-label="Ilustrasi tabel spreadsheet sederhana"
+        >
+          <div class="art-card">
+            <div class="art-top">
+              <span class="dot"></span><span class="dot"></span
+              ><span class="dot"></span
+              ><span style="margin-left: 5px">Daftar Perlengkapan</span>
+            </div>
+            <div class="mini-grid">
+              <span>Barang</span><span>Jumlah</span><span>Harga</span
+              ><span>Total</span><span>✏️ Pensil</span><span>3</span
+              ><span>2.000</span><span>6.000</span><span>📘 Buku</span
+              ><span>2</span><span>5.000</span><span>10.000</span
+              ><span>🧽 Penghapus</span><span>2</span><span>1.500</span
+              ><span>3.000</span>
+            </div>
+          </div>
+          <div class="floating-note">Data rapi, belajar asyik! ✨</div>
+        </div>
+      </section>
+      <div class="section-heading" id="belajar">
+        <div>
+          <h2>Petualangan belajar</h2>
+          <p>Pilih misi, pelajari konsepnya, lalu coba aktivitasnya.</p>
+        </div>
+        <span class="tag">🎯 Belajar sambil mencoba</span>
+      </div>
+      <div class="layout">
+        <aside class="sidebar" aria-label="Daftar misi">
+          <div class="side-title">Peta petualangan</div>
+          <div class="mission-list" id="missionList">
+            <button class="mission-link active" data-mission="0">
+              <span class="mission-number">1</span
+              ><span class="mission-label"
+                >Kenalan dengan Excel<small
+                  >Workbook, worksheet & sel</small
+                ></span
+              >
+            </button>
+            <button class="mission-link" data-mission="1">
+              <span class="mission-number">2</span
+              ><span class="mission-label"
+                >Tabel yang rapi<small>Border & warna header</small></span
+              >
+            </button>
+            <button class="mission-link" data-mission="2">
+              <span class="mission-number">3</span
+              ><span class="mission-label"
+                >Atur isi sel<small>Alignment & Wrap Text</small></span
+              >
+            </button>
+            <button class="mission-link" data-mission="3">
+              <span class="mission-number">4</span
+              ><span class="mission-label"
+                >Judul tabel<small>Merge & Center</small></span
+              >
+            </button>
+            <button class="mission-link" data-mission="4">
+              <span class="mission-number">5</span
+              ><span class="mission-label"
+                >Excel bisa berhitung<small>Rumus & fungsi dasar</small></span
+              >
+            </button>
+            <button class="mission-link" data-mission="5">
+              <span class="mission-number">6</span
+              ><span class="mission-label"
+                >Tantangan Excel<small>Kuis akhir</small></span
+              >
+            </button>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-label">
+              <span>Progres belajar</span
+              ><span id="progressText">0 dari 6</span>
+            </div>
+            <div
+              class="progress-track"
+              role="progressbar"
+              aria-label="Progres belajar"
+              aria-valuemin="0"
+              aria-valuemax="6"
+              aria-valuenow="0"
+            >
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
+          </div>
+        </aside>
+        <section class="content">
+          <article class="panel" id="missionPanel" aria-live="polite"></article>
+        </section>
+      </div>
+      <div class="footer">
+        <span
+          ><strong style="color: #53657b">#Informatika</strong> · Belajar.
+          Mencoba. Berkembang.</span
+        ><span>Media pembelajaran interaktif · Excel dasar · Kelas 4 SD</span>
+      </div>
+    </main>
+    <div class="quiz-modal" id="quizModal" aria-hidden="true">
+      <div class="quiz-backdrop" data-close-quiz></div>
+      <section
+        class="quiz-dialog"
+        id="quizDialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="quizModalTitle"
+        tabindex="-1"
+      >
+        <header class="quiz-dialog-head">
+          <h2 id="quizModalTitle">Kuis Kilat Excel</h2>
+          <button
+            class="quiz-close"
+            id="closeQuiz"
+            type="button"
+            aria-label="Tutup kuis"
+          >
+            ×
+          </button>
+        </header>
+        <div id="quizArea"></div>
+      </section>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script>
+      (() => {
+        const missions = [
+          {
+            title: "Kenalan dengan Microsoft Excel",
+            tag: "Penguatan dasar",
+            time: "± 4 menit",
+            intro:
+              "Microsoft Excel adalah aplikasi lembar kerja (spreadsheet) untuk mencatat, merapikan, dan menghitung data.",
+            body: `
+			<div class="two-col"><div class="info-card"><div class="info-icon">📚</div><h3>Workbook & worksheet</h3><p>Workbook adalah file atau buku kerja Excel. Worksheet adalah lembar-lembar di dalam workbook, seperti halaman pada buku.</p></div><div class="info-card"><div class="info-icon">🧮</div><h3>Untuk apa Excel?</h3><p>Excel membantu menyusun daftar buku, jadwal piket, nilai, dan belanja. Data juga dapat dihitung otomatis dengan rumus.</p></div></div>
+			<div class="callout"><h3>Kolom, baris, dan sel</h3><ul><li><b>Column (kolom)</b> adalah bagian tegak yang ditandai huruf A, B, C, dan seterusnya.</li><li><b>Row (baris)</b> adalah bagian mendatar yang ditandai angka 1, 2, 3, dan seterusnya.</li><li><b>Cell (sel)</b> adalah kotak pertemuan kolom dan baris. Alamat sel ditulis huruf kolom dulu, lalu nomor baris, misalnya B2.</li></ul></div>
+			<div class="demo-table-wrap"><table class="sheet"><thead><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead><tbody><tr><th>1</th><td class="cell-interactive" data-cell="A1" role="button" tabindex="0">Pensil</td><td class="cell-interactive" data-cell="B1" role="button" tabindex="0">Buku</td><td class="cell-interactive" data-cell="C1" role="button" tabindex="0">Penggaris</td><td class="cell-interactive" data-cell="D1" role="button" tabindex="0">Spidol</td></tr><tr><th>2</th><td class="cell-interactive" data-cell="A2" role="button" tabindex="0">Rp 2.000</td><td class="cell-interactive" data-cell="B2" role="button" tabindex="0">Rp 5.000</td><td class="cell-interactive" data-cell="C2" role="button" tabindex="0">Rp 3.000</td><td class="cell-interactive" data-cell="D2" role="button" tabindex="0">Rp 8.000</td></tr><tr><th>3</th><td class="cell-interactive" data-cell="A3" role="button" tabindex="0">Stok: 10</td><td class="cell-interactive" data-cell="B3" role="button" tabindex="0">Stok: 15</td><td class="cell-interactive" data-cell="C3" role="button" tabindex="0">Stok: 8</td><td class="cell-interactive" data-cell="D3" role="button" tabindex="0">Stok: 12</td></tr></tbody></table></div>
+			<div class="callout green"><h3>🎮 Mini game: tebak alamat sel</h3><p>Temukan alamat sel yang diminta pada tabel. Jawaban benar akan membuka tantangan berikutnya.</p><p style="margin-top:10px;font-weight:850">Perintah: klik sel <strong id="targetCellDisplay">B2</strong> <span class="pill" id="cellGameScore">Skor: 0</span></p><div class="feedback" id="cellFeedback" aria-live="polite"></div></div>`,
+          },
+          {
+            title: "Membuat tabel yang rapi",
+            tag: "Penguatan keterampilan",
+            time: "± 5 menit",
+            intro:
+              "Tabel yang bersih dan memiliki header yang jelas membantu pembaca memahami data sekolah atau daftar belanja.",
+            body: `
+			<div class="callout"><h3>Fitur penting untuk merapikan tabel</h3><ul><li><b>Borders</b> memberi garis pada sel agar data terpisah dengan jelas.</li><li><b>Fill Color</b> mewarnai latar sel, biasanya untuk membedakan header dari isi data.</li><li>Gunakan warna lembut dengan kontras yang cukup supaya tulisan mudah dibaca.</li></ul></div>
+			<div class="callout yellow"><h3>🧪 Simulasi hias tabel</h3><p>Coba pasang border dan pilih warna header. Warna hanya diterapkan pada judul kolom.</p><div class="toolbar"><button class="tool-btn" data-format="border">▦ Pasang / hapus border</button><button class="tool-btn" data-color="#dcecff|#174d8f">🔵 Header biru</button><button class="tool-btn" data-color="#fff0a8|#684d00">🟨 Header kuning</button><button class="tool-btn" data-color="#d9f3e5|#176b3d">🟢 Header hijau</button><button class="tool-btn" data-format="reset">↺ Reset tampilan</button></div></div>
+			<div class="demo-table-wrap"><table class="sheet" id="formatSheet"><thead><tr><th>Nama Siswa</th><th>Tugas 1</th><th>Tugas 2</th><th>Nilai Akhir</th></tr></thead><tbody><tr><td>Andi</td><td>85</td><td>90</td><td>88</td></tr><tr><td>Budi</td><td>90</td><td>95</td><td>93</td></tr><tr><td>Siti</td><td>100</td><td>95</td><td>98</td></tr></tbody></table></div>
+			<div class="callout yellow"><h3>💡 Pertanyaan refleksi</h3><p>Mengapa header sebaiknya memiliki warna yang berbeda dari isi data?</p><div class="toolbar"><button class="tool-btn" data-check="header" data-value="rainbow">🌈 Supaya tabel ramai seperti pelangi</button><button class="tool-btn" data-check="header" data-value="header">Agar judul mudah dibedakan dari data</button><button class="tool-btn" data-check="header" data-value="numbers">Supaya angka berubah otomatis</button></div><div class="feedback" id="headerFeedback"></div></div>`,
+          },
+          {
+            title: "Mengatur isi sel agar mudah dibaca",
+            tag: "Penguatan keterampilan",
+            time: "± 5 menit",
+            intro:
+              "Teks yang sejajar dan ukuran sel yang sesuai membuat tabel lebih mudah dibaca. Tidak semua isi harus rata tengah.",
+            body: `
+			<div class="callout"><h3>Perataan dan ukuran sel</h3><ul><li><b>Rata kiri</b> cocok untuk kata atau kalimat, seperti nama barang.</li><li><b>Rata tengah</b> sering cocok untuk judul kolom atau nomor pendek.</li><li><b>Rata kanan</b> dapat membantu merapikan angka dan nilai uang.</li><li><b>Wrap Text</b> melipat teks panjang ke baris berikutnya di dalam sel.</li></ul></div>
+			<div class="callout yellow"><h3>🧪 Lab simulator penataan sel</h3><p>Geser pengatur lebar kolom dan tinggi baris, lalu coba perataan dan Wrap Text.</p><div class="two-col"><label>Lebar kolom: <output id="widthValue">160 px</output><input type="range" min="100" max="300" value="160" data-dimension="width" aria-label="Lebar kolom"></label><label>Tinggi baris: <output id="heightValue">50 px</output><input type="range" min="30" max="100" value="50" data-dimension="height" aria-label="Tinggi baris"></label></div><div class="toolbar"><button class="tool-btn selected" data-align="left">☰ Rata kiri</button><button class="tool-btn" data-align="center">≡ Rata tengah</button><button class="tool-btn" data-align="right">☷ Rata kanan</button><button class="tool-btn" data-wrap aria-pressed="false">↵ Wrap Text: Mati</button><button class="tool-btn" data-size="reset">↺ Ukuran awal</button></div><div style="display:grid;place-items:center;background:#f1f5f9;padding:20px;border-radius:14px;overflow:auto"><div class="preview-cell" id="previewCell"><span>Daftar Peralatan Kelas 4 SD Informatika</span></div></div><p class="muted" style="margin-top:8px">Di Excel, tarik batas antara huruf kolom atau angka baris untuk mengubah ukuran. Klik dua kali batas kolom agar lebarnya menyesuaikan isi.</p></div>`,
+          },
+          {
+            title: "Membuat judul dengan Merge & Center",
+            tag: "Materi baru",
+            time: "± 3 menit",
+            intro:
+              "Merge & Center menggabungkan beberapa sel menjadi satu area dan menempatkan teks di tengah. Fitur ini cocok untuk judul tabel.",
+            body: `
+			<div class="callout"><h3>Kapan Merge & Center digunakan?</h3><p>Gunakan untuk membuat judul utama yang membentang di atas beberapa kolom. Hindari menggabungkan sel data sembarangan karena isi sel selain sel pertama dapat hilang.</p></div>
+			<div class="callout yellow"><h3>🧩 Cobalah gabungkan sel judul A1 sampai D1</h3><p>Pilih tombol untuk membandingkan kondisi sebelum dan sesudah.</p><div class="toolbar"><button class="tool-btn selected" data-merge="before">Sebelum</button><button class="tool-btn" data-merge="after">Merge & Center ✨</button></div><div class="demo-table-wrap"><table class="sheet"><thead><tr id="mergeTitle"><td>DAFTAR NILAI SD 1</td><td></td><td></td><td></td></tr><tr class="header-row"><th>No</th><th>Nama Siswa</th><th>Mata Pelajaran</th><th>Nilai</th></tr></thead><tbody><tr><td>1</td><td>Dina</td><td>Informatika</td><td>95</td></tr><tr><td>2</td><td>Eko</td><td>Informatika</td><td>88</td></tr></tbody></table></div><div class="feedback show good" id="mergeStatus">Sebelum digabung: teks berada di sel A1 saja.</div></div>`,
+          },
+          {
+            title: "Excel bisa berhitung!",
+            tag: "Materi baru",
+            time: "± 8 menit",
+            intro:
+              "Excel dapat menjadi kalkulator yang cepat. Setiap rumus harus diawali tanda sama dengan (=).",
+            body: `
+			<div class="two-col"><div class="info-card"><div class="info-icon">➕</div><h3>Operator matematika</h3><p><code>+</code> tambah, <code>-</code> kurang, <code>*</code> kali, dan <code>/</code> bagi.<br><code>=5+3</code> menghasilkan 8.</p></div><div class="info-card"><div class="info-icon">🧮</div><h3>Referensi sel & fungsi</h3><p>Gunakan alamat sel seperti <code>=B2*C2</code>. <code>SUM</code> menjumlahkan data dan <code>AVERAGE</code> menghitung rata-rata.</p></div></div>
+			<div class="callout"><h3>📋 Data alat tulis sekolah</h3><p>Gunakan B untuk harga satuan dan C untuk jumlah beli. Sel B2 berisi 10000, C2 berisi 2, dan seterusnya.</p><div class="demo-table-wrap" style="margin-top:12px"><table class="sheet"><thead><tr class="header-row"><th>Baris</th><th>A (Nama Barang)</th><th>B (Harga Satuan)</th><th>C (Jumlah Beli)</th></tr></thead><tbody><tr><th>2</th><td>Buku Tulis</td><td>10.000</td><td>2</td></tr><tr><th>3</th><td>Pensil 2B</td><td>5.000</td><td>4</td></tr><tr><th>4</th><td>Tempat Pensil</td><td>20.000</td><td>1</td></tr><tr><th>5</th><td>Penggaris</td><td>15.000</td><td>3</td></tr></tbody></table></div></div>
+			<div class="callout yellow"><h3>🔬 Laboratorium rumus interaktif</h3><p>Coba rumus dengan operator, alamat sel, atau fungsi SUM dan AVERAGE.</p><div class="toolbar"><button class="tool-btn" data-formula="=B2*C2">=B2*C2</button><button class="tool-btn" data-formula="=SUM(B2:B5)">=SUM(B2:B5)</button><button class="tool-btn" data-formula="=AVERAGE(B2:B5)">=AVERAGE(B2:B5)</button><button class="tool-btn" data-formula="=B2+B3">=B2+B3</button></div><div class="formula-input"><input id="formulaInput" value="=B2*C2" aria-label="Tulis rumus Excel"><button class="btn btn-primary" id="calculateBtn">⚡ Hitung hasil</button></div><div class="result" id="formulaResult" aria-live="polite">Hasil akan muncul di sini.</div><p class="muted" style="margin-top:8px">Contoh hasil: <code>=B2*C2</code> adalah 20.000; <code>=SUM(B2:B5)</code> adalah 50.000.</p></div>
+			<div class="callout green"><h3>Ingat!</h3><p>Simulasi ini untuk latihan awal. Coba juga rumus tersebut secara langsung di Microsoft Excel.</p></div>`,
+          },
+          {
+            title: "Tantangan Excel",
+            tag: "Uji pemahaman",
+            time: "± 5 menit",
+            intro:
+              "Uji pemahamanmu tentang lembar kerja, fitur format, dan rumus Excel. Setelah itu, praktikkan sendiri di Excel.",
+            body: `
+			<div class="callout green"><h3>🏁 Kuis final</h3><p>Jawab sepuluh pertanyaan tentang rumus, sel, dan fitur Excel. Setiap jawaban akan mendapat feedback dan pembahasan.</p><button class="btn btn-primary" id="inlineQuizStart">Mulai kuis tantangan →</button></div>
+			<div class="callout yellow"><h3>💡 Ingat!</h3><p>Simulator ini membantu memahami konsep. Setelah kuis, buka Microsoft Excel dan praktikkan keterampilanmu: buat tabel sederhana, rapikan formatnya, buat judul, lalu gunakan rumus untuk menghitung data.</p></div>`,
+          },
+        ];
+
+        const quizQuestions = [
+          {
+            q: "Apa tanda wajib yang ditulis pertama kali saat membuat rumus Excel?",
+            a: [
+              "Tanda titik dua (:) ",
+              "Tanda sama dengan (=)",
+              "Tanda seru (!)",
+              "Tanda bintang (*)",
+            ],
+            correct: 1,
+            why: "Semua rumus Excel diawali tanda sama dengan agar Excel tahu kamu sedang melakukan perhitungan.",
+          },
+          {
+            q: "Alamat sel B3 berarti sel tersebut terletak pada…",
+            a: [
+              "Kolom 3, baris B",
+              "Baris B3 secara bebas",
+              "Kolom B, baris 3",
+              "Lembar kerja nomor 3",
+            ],
+            correct: 2,
+            why: "Alamat sel ditulis dengan huruf kolom terlebih dahulu, lalu angka baris.",
+          },
+          {
+            q: "Fitur untuk menggabungkan beberapa sel menjadi satu sel judul di tengah adalah…",
+            a: ["Merge & Center", "Wrap Text", "Fill Color", "Borders"],
+            correct: 0,
+            why: "Merge & Center menggabungkan sel dan menempatkan teks di tengah.",
+          },
+          {
+            q: "Fungsi Excel yang digunakan untuk menjumlahkan sekumpulan angka adalah…",
+            a: ["AVERAGE", "COUNT", "SUM", "MAX"],
+            correct: 2,
+            why: "SUM menjumlahkan angka pada rentang sel, misalnya =SUM(B2:B5).",
+          },
+          {
+            q: "Jika teks di dalam sel sangat panjang dan terpotong, fitur yang dapat melipat teks ke bawah adalah…",
+            a: ["Align Left", "Wrap Text", "Font Size", "Borders"],
+            correct: 1,
+            why: "Wrap Text melipat teks panjang ke baris baru di dalam sel yang sama.",
+          },
+          {
+            q: "Fungsi Excel untuk mencari nilai rata-rata adalah…",
+            a: ["AVERAGE", "SUM", "MIN", "TOTAL"],
+            correct: 0,
+            why: "AVERAGE menghitung nilai rata-rata dari rentang sel tertentu.",
+          },
+          {
+            q: "Apa perbedaan workbook dan worksheet?",
+            a: [
+              "Workbook adalah file kerja, worksheet adalah lembar di dalamnya",
+              "Workbook adalah satu sel, worksheet adalah satu kolom",
+              "Keduanya selalu berarti hal yang sama",
+              "Worksheet adalah nama rumus Excel",
+            ],
+            correct: 0,
+            why: "Workbook adalah buku kerja atau file Excel; worksheet adalah lembar kerja di dalam workbook.",
+          },
+          {
+            q: "Fitur Borders digunakan untuk…",
+            a: [
+              "Mengubah isi angka",
+              "Menambahkan garis pada sel",
+              "Menggabungkan beberapa sel",
+              "Melipat teks panjang",
+            ],
+            correct: 1,
+            why: "Borders memberi garis batas agar sel dan data lebih mudah dibedakan.",
+          },
+          {
+            q: "Fill Color pada header membantu kita…",
+            a: [
+              "Menghitung jumlah data",
+              "Mengubah rumus menjadi teks",
+              "Membedakan judul kolom dari isi data",
+              "Mengurutkan data otomatis",
+            ],
+            correct: 2,
+            why: "Warna latar header membantu pembaca mengenali judul kolom dengan cepat.",
+          },
+          {
+            q: "Perataan yang biasanya cocok untuk nama barang adalah…",
+            a: ["Rata kiri", "Rata kanan", "Rata bawah", "Rata diagonal"],
+            correct: 0,
+            why: "Rata kiri nyaman dibaca untuk teks berupa nama atau kata-kata.",
+          },
+        ];
+        const panel = document.getElementById("missionPanel"),
+          links = [...document.querySelectorAll(".mission-link")],
+          done = new Set(),
+          $ = (id) => document.getElementById(id);
+        let current = 0,
+          soundOn = false,
+          audioCtx = null,
+          cellGameIndex = 0,
+          cellGameScore = 0,
+          quizIndex = 0,
+          quizScore = 0,
+          quizTarget = "quizArea",
+          quizAnswered = false,
+          lastQuizTrigger = null;
+        const cellTargets = ["B2", "A1", "C3", "D2", "B1", "C2"];
+        function beep(type = "click") {
+          if (!soundOn) return;
+          try {
+            audioCtx =
+              audioCtx || (window.AudioContext ? new AudioContext() : null);
+            if (!audioCtx) return;
+            if (audioCtx.state === "suspended") audioCtx.resume();
+            const now = audioCtx.currentTime,
+              notes =
+                type === "good"
+                  ? [660, 880, 1046]
+                  : type === "bad"
+                    ? [220, 180]
+                    : type === "win"
+                      ? [523, 659, 784, 1046]
+                      : [440];
+            notes.forEach((freq, i) => {
+              const osc = audioCtx.createOscillator(),
+                gain = audioCtx.createGain();
+              osc.type = "sine";
+              osc.frequency.setValueAtTime(freq, now + i * 0.105);
+              gain.gain.setValueAtTime(0.0001, now + i * 0.105);
+              gain.gain.exponentialRampToValueAtTime(
+                0.12,
+                now + i * 0.105 + 0.015,
+              );
+              gain.gain.exponentialRampToValueAtTime(
+                0.0001,
+                now + i * 0.105 + 0.12,
+              );
+              osc.connect(gain);
+              gain.connect(audioCtx.destination);
+              osc.start(now + i * 0.105);
+              osc.stop(now + i * 0.105 + 0.14);
+            });
+          } catch (error) {}
+        }
+        function toast(message) {
+          const element = $("toast");
+          element.textContent = message;
+          element.classList.add("show");
+          clearTimeout(toast.timer);
+          toast.timer = setTimeout(
+            () => element.classList.remove("show"),
+            2400,
+          );
+        }
+        function confetti() {
+          const colors = ["#1769d1", "#ffd85a", "#2e9d68", "#ff8c69"];
+          for (let index = 0; index < 42; index++) {
+            const piece = document.createElement("i");
+            piece.className = "confetti";
+            piece.style.left = Math.random() * 100 + "vw";
+            piece.style.background = colors[index % colors.length];
+            piece.style.animationDelay = Math.random() * 0.4 + "s";
+            document.body.appendChild(piece);
+            setTimeout(() => piece.remove(), 2300);
+          }
+        }
+        function updateProgress() {
+          $("progressText").textContent = `${done.size} dari 6`;
+          $("progressBar").style.width = (done.size / 6) * 100 + "%";
+          $("progressBar").parentElement.setAttribute(
+            "aria-valuenow",
+            String(done.size),
+          );
+          links.forEach((link, index) => {
+            link.classList.toggle("done", done.has(index));
+            link.classList.toggle("active", index === current);
+            link.querySelector(".mission-number").textContent = done.has(index)
+              ? "✓"
+              : index + 1;
+          });
+        }
+        function markDone(index) {
+          done.add(index);
+          updateProgress();
+        }
+        function renderMission(index) {
+          current = index;
+          const mission = missions[index];
+          updateProgress();
+          panel.innerHTML = `<div class="mission-head"><div><span class="tag">${mission.tag}</span><h2>${mission.title}</h2><p>${mission.intro}</p></div><span class="pill">⏱ ${mission.time}</span></div><div class="lesson-body">${mission.body}</div><div class="lesson-footer"><span class="muted">${done.has(index) ? "✓ Misi sudah dijelajahi" : "Selesaikan aktivitas untuk menandai misi ini"}</span><div style="display:flex;gap:8px"><button class="btn btn-light btn-small" id="prevMission" ${index === 0 ? "disabled" : ""}>← Sebelumnya</button><button class="btn btn-primary btn-small" id="nextMission">${index === 5 ? "Selesai ✓" : "Misi berikutnya →"}</button></div></div>`;
+          if (index === 0) {
+            $("targetCellDisplay").textContent = cellTargets[cellGameIndex];
+            $("cellGameScore").textContent = `Skor: ${cellGameScore}`;
+            panel.querySelectorAll("[data-cell]").forEach((cell) => {
+              cell.addEventListener("click", () => checkCell(cell));
+              cell.addEventListener("keydown", (event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  checkCell(cell);
+                }
+              });
+            });
+          }
+          panel.querySelectorAll('[data-format="border"]').forEach((button) =>
+            button.addEventListener("click", () => {
+              $("formatSheet").classList.toggle("borders-on");
+              button.classList.toggle("selected");
+              beep();
+            }),
+          );
+          panel.querySelectorAll('[data-format="reset"]').forEach((button) =>
+            button.addEventListener("click", () => {
+              const table = $("formatSheet");
+              table.classList.remove("borders-on");
+              table.querySelectorAll("th").forEach((cell) => {
+                cell.style.background = "";
+                cell.style.color = "";
+              });
+              panel
+                .querySelectorAll('[data-format="border"],[data-color]')
+                .forEach((control) => control.classList.remove("selected"));
+              beep();
+            }),
+          );
+          panel.querySelectorAll("[data-color]").forEach((button) =>
+            button.addEventListener("click", () => {
+              const [background, color] = button.dataset.color.split("|");
+              $("formatSheet")
+                .querySelectorAll("thead th")
+                .forEach((cell) => {
+                  cell.style.background = background;
+                  cell.style.color = color;
+                });
+              panel
+                .querySelectorAll("[data-color]")
+                .forEach((control) =>
+                  control.classList.toggle("selected", control === button),
+                );
+              beep();
+            }),
+          );
+          panel.querySelectorAll('[data-check="header"]').forEach((button) =>
+            button.addEventListener("click", () => {
+              const correct = button.dataset.value === "header",
+                feedback = $("headerFeedback");
+              feedback.className =
+                "feedback show " + (correct ? "good" : "bad");
+              feedback.textContent = correct
+                ? "Benar! Warna header membuat judul kolom mudah dikenali tanpa membuat tabel terlalu ramai."
+                : "Belum tepat. Pilih cara yang membantu pembaca mengenali judul kolom.";
+              beep(correct ? "good" : "bad");
+              if (correct) markDone(1);
+            }),
+          );
+          panel.querySelectorAll("[data-align]").forEach((button) =>
+            button.addEventListener("click", () => {
+              const cell = $("previewCell");
+              cell.style.justifyContent =
+                button.dataset.align === "left"
+                  ? "flex-start"
+                  : button.dataset.align === "center"
+                    ? "center"
+                    : "flex-end";
+              panel
+                .querySelectorAll("[data-align]")
+                .forEach((control) =>
+                  control.classList.toggle("selected", control === button),
+                );
+              beep();
+            }),
+          );
+          panel.querySelectorAll("[data-dimension]").forEach((input) =>
+            input.addEventListener("input", () => {
+              const cell = $("previewCell");
+              if (input.dataset.dimension === "width") {
+                cell.style.width = input.value + "px";
+                $("widthValue").textContent = input.value + " px";
+              } else {
+                cell.style.height = input.value + "px";
+                $("heightValue").textContent = input.value + " px";
+              }
+            }),
+          );
+          panel
+            .querySelector("[data-wrap]")
+            ?.addEventListener("click", (event) => {
+              const button = event.currentTarget,
+                cell = $("previewCell"),
+                active = button.getAttribute("aria-pressed") !== "true";
+              button.setAttribute("aria-pressed", String(active));
+              button.textContent = `↵ Wrap Text: ${active ? "Aktif" : "Mati"}`;
+              cell.classList.toggle("wrap", active);
+              beep();
+            });
+          panel
+            .querySelector('[data-size="reset"]')
+            ?.addEventListener("click", () => {
+              const cell = $("previewCell");
+              cell.style.width = "160px";
+              cell.style.height = "50px";
+              cell.style.justifyContent = "flex-start";
+              cell.classList.remove("wrap");
+              panel.querySelector('[data-dimension="width"]').value = 160;
+              panel.querySelector('[data-dimension="height"]').value = 50;
+              $("widthValue").textContent = "160 px";
+              $("heightValue").textContent = "50 px";
+              const wrap = panel.querySelector("[data-wrap]");
+              wrap.setAttribute("aria-pressed", "false");
+              wrap.textContent = "↵ Wrap Text: Mati";
+              panel
+                .querySelectorAll("[data-align]")
+                .forEach((control) =>
+                  control.classList.toggle(
+                    "selected",
+                    control.dataset.align === "left",
+                  ),
+                );
+              beep();
+            });
+          panel.querySelectorAll("[data-merge]").forEach((button) =>
+            button.addEventListener("click", () => {
+              const merged = button.dataset.merge === "after";
+              $("mergeTitle").innerHTML = merged
+                ? '<td colspan="4" style="text-align:center;background:#dcecff;font-weight:900;color:#174d8f">DAFTAR NILAI SD 1</td>'
+                : "<td>DAFTAR NILAI SD 1</td><td></td><td></td><td></td>";
+              $("mergeStatus").className =
+                "feedback show " + (merged ? "good" : "bad");
+              $("mergeStatus").textContent = merged
+                ? "Sudah di-Merge & Center: empat sel menjadi satu judul tabel di tengah."
+                : "Sebelum digabung: teks berada di sel A1 saja.";
+              panel
+                .querySelectorAll("[data-merge]")
+                .forEach((control) =>
+                  control.classList.toggle("selected", control === button),
+                );
+              beep(merged ? "good" : "click");
+              if (merged) markDone(3);
+            }),
+          );
+          panel.querySelectorAll("[data-formula]").forEach((button) =>
+            button.addEventListener("click", () => {
+              $("formulaInput").value = button.dataset.formula;
+              calculateFormula();
+              beep();
+            }),
+          );
+          $("calculateBtn")?.addEventListener("click", calculateFormula);
+          $("formulaInput")?.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") calculateFormula();
+          });
+          $("inlineQuizStart")?.addEventListener("click", startQuiz);
+          $("prevMission").addEventListener("click", () =>
+            renderMission(Math.max(0, current - 1)),
+          );
+          $("nextMission").addEventListener("click", () => {
+            markDone(current);
+            if (current < 5) {
+              renderMission(current + 1);
+              beep("good");
+            } else {
+              confetti();
+              beep("win");
+              toast("Petualangan selesai! Saatnya praktik di Excel asli.");
+              $("tantangan").scrollIntoView({ behavior: "smooth" });
+            }
+          });
+        }
+        function checkCell(cell) {
+          const address = cell.dataset.cell,
+            correct = address === cellTargets[cellGameIndex],
+            feedback = $("cellFeedback");
+          feedback.className = "feedback show " + (correct ? "good" : "bad");
+          if (correct) {
+            cellGameScore += 10;
+            cellGameIndex = (cellGameIndex + 1) % cellTargets.length;
+            $("cellGameScore").textContent = `Skor: ${cellGameScore}`;
+            $("targetCellDisplay").textContent = cellTargets[cellGameIndex];
+            feedback.textContent = `Hebat! Benar, ini sel ${address}. Skor kamu bertambah 10.`;
+            beep("good");
+            markDone(0);
+          } else {
+            feedback.textContent = `Itu sel ${address}. Cari sel ${cellTargets[cellGameIndex]} dengan melihat huruf kolom dan angka baris.`;
+            beep("bad");
+          }
+        }
+        const sampleData = {
+          B2: 10000,
+          B3: 5000,
+          B4: 20000,
+          B5: 15000,
+          C2: 2,
+          C3: 4,
+          C4: 1,
+          C5: 3,
+        };
+        function evaluateArithmetic(expression) {
+          const tokens =
+            expression.match(
+              /[A-Z]+[0-9]+|(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)|[()+\-*/]/g,
+            ) || [];
+          if (tokens.join("") !== expression)
+            throw Error(
+              "Ada karakter yang belum didukung. Gunakan angka, alamat sel, dan + - * /.",
+            );
+          const values = tokens.map((token) => {
+            if (Object.hasOwn(sampleData, token))
+              return String(sampleData[token]);
+            if (/^[A-Z]+[0-9]+$/.test(token))
+              throw Error(`Alamat sel ${token} tidak ada di tabel latihan.`);
+            return token;
+          });
+          let position = 0;
+          function factor() {
+            const token = values[position++];
+            if (token === "+") return factor();
+            if (token === "-") return -factor();
+            if (token === "(") {
+              const value = expressionValue();
+              if (values[position++] !== ")")
+                throw Error("Periksa tanda kurung rumus.");
+              return value;
+            }
+            const value = Number(token);
+            if (!Number.isFinite(value)) throw Error("Rumus belum lengkap.");
+            return value;
+          }
+          function term() {
+            let value = factor();
+            while (values[position] === "*" || values[position] === "/") {
+              const operator = values[position++],
+                next = factor();
+              if (operator === "/" && next === 0)
+                throw Error("Angka tidak dapat dibagi nol.");
+              value = operator === "*" ? value * next : value / next;
+            }
+            return value;
+          }
+          function expressionValue() {
+            let value = term();
+            while (values[position] === "+" || values[position] === "-") {
+              const operator = values[position++],
+                next = term();
+              value = operator === "+" ? value + next : value - next;
+            }
+            return value;
+          }
+          const result = expressionValue();
+          if (position !== values.length || !Number.isFinite(result))
+            throw Error("Periksa kembali penulisan rumusmu.");
+          return result;
+        }
+        function calculateFormula() {
+          const input = $("formulaInput"),
+            output = $("formulaResult");
+          if (!input || !output) return;
+          const raw = input.value.trim().toUpperCase();
+          try {
+            if (!raw.startsWith("="))
+              throw Error("Rumus Excel harus diawali tanda sama dengan (=).");
+            const expression = raw.slice(1).replace(/\s/g, "");
+            let result;
+            const match = expression.match(
+              /^(SUM|AVERAGE)\(([A-Z]+)([0-9]+):([A-Z]+)([0-9]+)\)$/,
+            );
+            if (match) {
+              const [, operation, startColumn, startRow, endColumn, endRow] =
+                match;
+              const first = Number(startRow),
+                last = Number(endRow);
+              if (startColumn !== endColumn || last < first)
+                throw Error(
+                  "Pilih rentang satu kolom yang berurutan, misalnya B2:B5.",
+                );
+              const values = [];
+              for (let row = first; row <= last; row++) {
+                const address = startColumn + row;
+                if (!Object.hasOwn(sampleData, address))
+                  throw Error(
+                    `Sel ${address} tidak tersedia di tabel latihan.`,
+                  );
+                values.push(sampleData[address]);
+              }
+              result =
+                operation === "SUM"
+                  ? values.reduce((total, value) => total + value, 0)
+                  : values.reduce((total, value) => total + value, 0) /
+                    values.length;
+            } else if (/^(SUM|AVERAGE)\(/.test(expression))
+              throw Error(
+                "Untuk latihan ini, gunakan rentang seperti SUM(B2:B5) atau AVERAGE(C2:C5).",
+              );
+            else result = evaluateArithmetic(expression);
+            output.className = "result good";
+            output.textContent = `✨ Hasil: ${Number(result.toFixed(4)).toLocaleString("id-ID")}`;
+            beep("good");
+            markDone(4);
+          } catch (error) {
+            output.className = "result";
+            output.textContent = "💡 " + error.message;
+            beep("bad");
+          }
+        }
+        function startQuiz() {
+          quizIndex = 0;
+          quizScore = 0;
+          quizTarget = "quizArea";
+          quizAnswered = false;
+          lastQuizTrigger = document.activeElement;
+          $("quizArea").innerHTML = "";
+          renderQuestion();
+          const modal = $("quizModal");
+          modal.classList.add("open");
+          modal.setAttribute("aria-hidden", "false");
+          document.body.classList.add("modal-open");
+          $("closeQuiz").focus();
+          beep();
+        }
+        function closeQuiz() {
+          const modal = $("quizModal");
+          modal.classList.remove("open");
+          modal.setAttribute("aria-hidden", "true");
+          document.body.classList.remove("modal-open");
+          lastQuizTrigger?.focus();
+        }
+        function renderQuestion() {
+          const area = $(quizTarget),
+            question = quizQuestions[quizIndex];
+          if (!area || !question) return;
+          area.innerHTML = `<div class="question"><div class="progress-label"><span>Pertanyaan ${quizIndex + 1} dari ${quizQuestions.length}</span><span>⭐ ${quizScore} poin</span></div><div class="progress-track" style="margin-bottom:17px"><div class="progress-bar" style="width:${(quizIndex / quizQuestions.length) * 100}%"></div></div><h3>${question.q}</h3><div class="answer-list">${question.a.map((answer, index) => `<button class="answer" data-answer="${index}">${String.fromCharCode(65 + index)}. ${answer}</button>`).join("")}</div><div class="feedback" data-question-feedback></div><div style="display:flex;justify-content:flex-end;margin-top:14px"><button class="btn btn-primary" data-next-question disabled>${quizIndex === quizQuestions.length - 1 ? "Lihat hasil" : "Berikutnya →"}</button></div></div>`;
+          area
+            .querySelectorAll("[data-answer]")
+            .forEach((button) =>
+              button.addEventListener("click", () =>
+                answerQuestion(Number(button.dataset.answer)),
+              ),
+            );
+          area
+            .querySelector("[data-next-question]")
+            .addEventListener("click", () => {
+              if (quizIndex < quizQuestions.length - 1) {
+                quizIndex++;
+                quizAnswered = false;
+                renderQuestion();
+              } else showQuizResult();
+            });
+        }
+        function answerQuestion(choice) {
+          if (quizAnswered) return;
+          quizAnswered = true;
+          const question = quizQuestions[quizIndex],
+            area = $(quizTarget),
+            correct = choice === question.correct;
+          if (correct) quizScore++;
+          area.querySelectorAll("[data-answer]").forEach((button, index) => {
+            button.disabled = true;
+            if (index === question.correct) button.classList.add("correct");
+            else if (index === choice) button.classList.add("wrong");
+          });
+          const feedback = area.querySelector("[data-question-feedback]");
+          feedback.className = "feedback show " + (correct ? "good" : "bad");
+          feedback.textContent =
+            (correct ? "Betul! " : "Belum tepat. ") + question.why;
+          area.querySelector("[data-next-question]").disabled = false;
+          beep(correct ? "good" : "bad");
+        }
+        function showQuizResult() {
+          const area = $(quizTarget),
+            percentage = Math.round((quizScore / quizQuestions.length) * 100),
+            message =
+              percentage === 100
+                ? "Sempurna! Kamu menguasai dasar-dasar Excel!"
+                : percentage >= 60
+                  ? "Hebat! Baca kembali pembahasan yang belum tepat, lalu coba lagi."
+                  : "Terus berlatih! Jelajahi lagi misinya, lalu coba kuis sekali lagi.";
+          area.innerHTML = `<div class="quiz-summary show"><div class="score-circle">${quizScore}/${quizQuestions.length}</div><h3>${percentage === 100 ? "Luar biasa!" : percentage >= 60 ? "Kerja bagus!" : "Tetap semangat!"}</h3><p>${message}</p><div class="actions" style="justify-content:center"><button class="btn btn-primary" data-retry-quiz>↻ Coba lagi</button><button class="btn btn-light" data-back-lessons>Kembali ke materi</button></div></div>`;
+          if (percentage >= 60) {
+            confetti();
+            beep("win");
+          } else beep("bad");
+          area
+            .querySelector("[data-retry-quiz]")
+            .addEventListener("click", startQuiz);
+          area
+            .querySelector("[data-back-lessons]")
+            .addEventListener("click", () => {
+              closeQuiz();
+              renderMission(0);
+              $("belajar").scrollIntoView({ behavior: "smooth" });
+            });
+          markDone(5);
+        }
+        links.forEach((link) =>
+          link.addEventListener("click", () => {
+            renderMission(Number(link.dataset.mission));
+            beep();
+            if (window.innerWidth < 850)
+              panel.scrollIntoView({ behavior: "smooth", block: "start" });
+          }),
+        );
+        $("startBtn").addEventListener("click", () => {
+          renderMission(0);
+          $("belajar").scrollIntoView({ behavior: "smooth" });
+          beep();
+        });
+        $("quickQuizBtn").addEventListener("click", startQuiz);
+        $("closeQuiz").addEventListener("click", closeQuiz);
+        $("quizModal").addEventListener("click", (event) => {
+          if (
+            event.target === event.currentTarget ||
+            event.target.matches("[data-close-quiz]")
+          )
+            closeQuiz();
+        });
+        document.addEventListener("keydown", (event) => {
+          if (!$("quizModal").classList.contains("open")) return;
+          if (event.key === "Escape") {
+            closeQuiz();
+            return;
+          }
+          if (event.key === "Tab") {
+            const focusable = [
+              ...$("quizDialog").querySelectorAll(
+                'button:not([disabled]),[href],input,select,textarea,[tabindex]:not([tabindex="-1"])',
+              ),
+            ];
+            if (!focusable.length) return;
+            const first = focusable[0],
+              last = focusable[focusable.length - 1];
+            if (event.shiftKey && document.activeElement === first) {
+              event.preventDefault();
+              last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+              event.preventDefault();
+              first.focus();
+            }
+          }
+        });
+        document
+          .querySelector("#challengeNav")
+          .addEventListener("click", (event) => {
+            event.preventDefault();
+            renderMission(5);
+            panel.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+        $("soundToggle").addEventListener("click", () => {
+          soundOn = !soundOn;
+          $("soundToggle").textContent = soundOn
+            ? "🔊 Suara: Aktif"
+            : "🔇 Suara: Mati";
+          $("soundToggle").setAttribute("aria-pressed", String(soundOn));
+          if (soundOn) {
+            beep("good");
+            toast("Efek suara aktif.");
+          } else toast("Efek suara dimatikan.");
+        });
+        renderMission(0);
+      })();
+    </script>
+  </body>
+</html>
