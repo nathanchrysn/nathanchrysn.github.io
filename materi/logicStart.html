@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Logika Lab! — Logika Dasar Pemrograman</title>
+    <link rel="stylesheet" href="logicStart.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap"
+      rel="stylesheet">
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="nav-container">
+        <a class="brand" href="../index.html" aria-label="#Informatika, Logika Lab!">
+          <span class="brand-main">#Informatika</span>
+          <span class="brand-sub">Logika Lab!</span>
+        </a>
+        <nav class="nav-menu" id="nav" aria-label="Navigasi materi">
+          <button class="nav-link active" type="button" data-page="home" onclick="go('home')">
+            HOME
+          </button>
+          <details class="nav-dropdown">
+            <summary class="nav-link">MATERI</summary>
+            <div class="dropdown-menu">
+              <button class="dropdown-link" type="button" data-page="pseudo" onclick="go('pseudo')">
+                PSEUDOCODE
+              </button>
+              <button class="dropdown-link" type="button" data-page="cond" onclick="go('cond')">
+                CONDITIONAL
+              </button>
+              <button class="dropdown-link" type="button" data-page="loop" onclick="go('loop')">
+                LOOPING
+              </button>
+            </div>
+          </details>
+          <details class="nav-dropdown">
+            <summary class="nav-link">LATIHAN</summary>
+            <div class="dropdown-menu">
+              <button class="dropdown-link" type="button" data-page="misi" onclick="go('misi')">
+                TANTANGAN AKHIR
+              </button>
+              <button class="dropdown-link" type="button" data-page="kuis" onclick="go('kuis')">
+                KUIS &amp; REFLEKSI
+              </button>
+            </div>
+          </details>
+        </nav>
+      </div>
+    </header>
+
+    <div id="bar"><i id="barI"></i></div>
+
+    <main>
+      <section class="page on" id="p-home">
+        <div class="card hero">
+          <div class="big">🤖🧪</div>
+          <h1>Logika Lab!</h1>
+          <h2>Logika Dasar Pemrograman</h2>
+          <span class="tag">Koding dan KA — Kelas 5 SD</span>
+          <p>
+            Komputer dan robot tidak bisa menebak. Mereka butuh
+            <b>instruksi yang jelas</b> dan berurutan. Hari ini kita
+            belajar cara menyusun instruksi itu!
+          </p>
+          <div class="q">
+            🤔 Jika kamu memberi instruksi kepada robot untuk membuat
+            roti isi, apa yang terjadi jika urutan instruksinya salah?
+          </div>
+        </div>
+
+        <div class="goal">
+          <b>Alur pelajaran (35–40 menit):</b> Pembukaan 3 menit →
+          Pseudocode 8 → Conditional 8 → Looping 7 → Tantangan 8 →
+          Kuis dan refleksi 3–6. Guru boleh memilih siswa berbeda untuk
+          tiap aktivitas.
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <div class="big">📝</div>
+            <h3>Pseudocode</h3>
+            <p>Menulis langkah dengan bahasa sederhana.</p>
+            <button class="btn" onclick="go('pseudo')">Buka Materi</button>
+          </div>
+          <div class="card">
+            <div class="big">🔀</div>
+            <h3>Conditional</h3>
+            <p>JIKA ... JIKA TIDAK ...</p>
+            <button class="btn" onclick="go('cond')">Buka Materi</button>
+          </div>
+          <div class="card">
+            <div class="big">🔁</div>
+            <h3>Looping</h3>
+            <p>Mengulang instruksi dengan rapi.</p>
+            <button class="btn" onclick="go('loop')">Buka Materi</button>
+          </div>
+        </div>
+
+        <div class="grid" style="margin-top: 14px">
+          <div class="card">
+            <div class="big">🏆</div>
+            <h3>Tantangan Akhir</h3>
+            <p>Tiga misi robot.</p>
+            <button class="btn g" onclick="go('misi')">Mulai Tantangan</button>
+          </div>
+          <div class="card">
+            <div class="big">📋</div>
+            <h3>Kuis dan Refleksi</h3>
+            <p>10 soal dan 4 pertanyaan refleksi.</p>
+            <button class="btn y" onclick="go('kuis')">Mulai Kuis</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="p-pseudo">
+        <h2>📝 Pseudocode <span class="tag">⏱ 8 menit</span></h2>
+        <div class="goal">
+          <b>Tujuan:</b> Aku paham pseudocode adalah langkah-langkah
+          menyelesaikan masalah yang ditulis dengan bahasa sederhana
+          dan rapi.
+        </div>
+        <div class="card">
+          <b>Pseudocode</b> membantu kita
+          <b>merencanakan instruksi sebelum membuat program</b>. Bukan
+          bahasa komputer, tetapi bahasa kita sehari-hari yang
+          berurutan. Mulai dengan <b>MULAI</b>, akhiri dengan
+          <b>SELESAI</b>.
+        </div>
+        <div class="ex">
+          <div class="card">
+            <h3>🥪 A. Membuat roti isi</h3>
+            <pre><b>MULAI</b>
+Ambil dua lembar roti.
+Letakkan isian pada roti.
+Tutup dengan lembar roti lainnya.
+<b>SELESAI</b></pre>
+          </div>
+          <div class="card">
+            <h3>🎒 B. Menyiapkan tas sekolah</h3>
+            <pre><b>MULAI</b>
+Periksa jadwal pelajaran.
+Siapkan buku sesuai jadwal.
+Masukkan alat tulis.
+Periksa kembali isi tas.
+<b>SELESAI</b></pre>
+          </div>
+          <div class="card">
+            <h3>🌱 C. Menanam biji</h3>
+            <pre><b>MULAI</b>
+Siapkan pot dan tanah.
+Masukkan tanah ke pot.
+Tanam biji.
+Siram secukupnya.
+<b>SELESAI</b></pre>
+          </div>
+        </div>
+        <div class="card">
+          <h3>🎮 Aktivitas: susun urutan yang benar</h3>
+          <div class="tabs" id="tb-ps"></div>
+          <div id="bd-ps"></div>
+        </div>
+      </section>
+
+      <section class="page" id="p-cond">
+        <h2>🔀 Conditional (IF–ELSE) <span class="tag">⏱ 8 menit</span></h2>
+        <div class="goal">
+          <b>Tujuan:</b> Aku paham program bisa memilih tindakan
+          berdasarkan kondisi.
+        </div>
+        <div class="card">
+          <b>JIKA</b> (IF) artinya "jika kondisinya benar".
+          <b>JIKA TIDAK</b> (ELSE) artinya "jika kondisinya tidak
+          benar". Kondisi menentukan tindakan yang dipilih program.
+        </div>
+        <div class="ex">
+          <div class="card">
+            <h3>☔ A. Cuaca</h3>
+            <pre><b>JIKA</b> hujan
+  Bawa payung.
+<b>JIKA TIDAK</b>
+  Tidak perlu membawa payung.</pre>
+          </div>
+          <div class="card">
+            <h3>🔋 B. Baterai robot</h3>
+            <pre><b>JIKA</b> baterai kurang dari 20%
+  Isi daya baterai.
+<b>JIKA TIDAK</b>
+  Robot dapat melanjutkan tugas.</pre>
+          </div>
+          <div class="card">
+            <h3>🚦 C. Lampu lalu lintas</h3>
+            <pre><b>JIKA</b> lampu merah
+  Berhenti.
+<b>JIKA TIDAK</b>
+  Periksa kondisi lampu dan ikuti aturan lalu lintas.</pre>
+            <small>
+              Lampu kuning berarti bersiap berhenti, lampu hijau
+              berarti boleh jalan sambil tetap melihat sekitar. Jadi
+              "JIKA TIDAK" tidak selalu berarti tindakan yang sama.
+            </small>
+          </div>
+        </div>
+        <div class="card">
+          <h3>🎮 Aktivitas: pilih tindakan yang tepat</h3>
+          <div class="tabs" id="tb-cd"></div>
+          <div id="bd-cd"></div>
+        </div>
+      </section>
+
+      <section class="page" id="p-loop">
+        <h2>🔁 Looping <span class="tag">⏱ 7 menit</span></h2>
+        <div class="goal">
+          <b>Tujuan:</b> Aku paham looping mengulang instruksi sesuai
+          jumlah pengulangan atau sampai kondisi berhenti terpenuhi.
+        </div>
+        <div class="card">
+          <b>Looping</b> membuat kita tidak perlu menulis instruksi yang
+          sama berkali-kali. <b>Penting:</b> looping harus punya jumlah
+          pengulangan atau kondisi berhenti yang jelas. Tanpa itu,
+          robot mengulang tanpa henti!
+        </div>
+        <div class="ex">
+          <div class="card">
+            <h3>👏 A. Tepuk tangan</h3>
+            <pre><b>ULANGI 3 KALI:</b>
+  Tepuk tangan.</pre>
+          </div>
+          <div class="card">
+            <h3>🪴 B. Menyiram tanaman</h3>
+            <pre><b>ULANGI UNTUK SETIAP TANAMAN
+DARI 4 TANAMAN:</b>
+  Siram satu tanaman.</pre>
+          </div>
+          <div class="card">
+            <h3>🦘 C. Melompat</h3>
+            <pre><b>ULANGI 5 KALI:</b>
+  Lompat satu kali.</pre>
+          </div>
+        </div>
+        <div class="card">
+          <h3>🎮 Simulasi looping (dikendalikan guru)</h3>
+          <div class="tabs" id="tb-lp"></div>
+          <div id="bd-lp"></div>
+        </div>
+      </section>
+
+      <section class="page" id="p-misi">
+        <h2>🏆 Tantangan Akhir: Tiga Misi <span class="tag">⏱ 8 menit</span></h2>
+        <div class="tabs" id="tb-ms"></div>
+        <div class="card" id="bd-ms"></div>
+      </section>
+
+      <section class="page" id="p-kuis">
+        <h2>📋 Kuis dan Refleksi <span class="tag">⏱ 3–6 menit</span></h2>
+        <div class="card" id="quiz"></div>
+        <div class="card">
+          <h3>💬 Refleksi lisan</h3>
+          <p>1. Apa yang kamu pelajari tentang pseudocode?</p>
+          <p>2. Kapan program perlu membuat keputusan?</p>
+          <p>3. Kapan looping berguna?</p>
+          <p>4. Mengapa instruksi harus jelas?</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="return-container">
+      <a class="home-link" href="../index.html">‹ Kembali ke Beranda</a>
+    </footer>
+
+<script>
+"use strict";
+var PG=['home','pseudo','cond','loop','misi','kuis'];
+var seen={home:1};
+function go(p){
+ if(lpT){clearInterval(lpT);lpT=null;}
+ PG.forEach(function(k,i){
+  document.getElementById('p-'+k).classList.toggle('on',k===p);
+ });
+ document.querySelectorAll('[data-page]').forEach(function(item){
+  item.classList.toggle('active',item.dataset.page===p);
+ });
+ document.querySelectorAll('.nav-dropdown').forEach(function(menu){
+  menu.classList.toggle('active',Boolean(menu.querySelector('[data-page="'+p+'"]')));
+  menu.open=false;
+ });
+ seen[p]=1;
+ document.getElementById('barI').style.width=(Object.keys(seen).length/PG.length*100)+'%';
+ window.scrollTo(0,0);
+}
+function $(i){return document.getElementById(i)}
+function shuf(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a}
+function mkTabs(g,labels,render){
+ var tb=$('tb-'+g);tb.innerHTML='';
+ labels.forEach(function(l,i){
+  var b=document.createElement('button');b.textContent=l;
+  b.onclick=function(){
+   Array.prototype.forEach.call(tb.children,function(c,j){c.classList.toggle('on',i===j)});
+   render(i,$('bd-'+g));
+  };
+  tb.appendChild(b);
+ });
+ tb.children[0].click();
+}
+function fb(id,cls,msg){var e=$(id);e.className='fb '+cls;e.innerHTML=msg}
+
+/* ===== PSEUDOCODE: mengurutkan ===== */
+var O={};
+var PS=[
+ {t:'Mencuci tangan',steps:['Basahi tangan dengan air','Beri sabun','Gosok semua bagian tangan','Bilas dengan air bersih','Keringkan dengan lap'],why:'Tangan dibasahi dulu agar sabun berbusa, digosok agar kuman lepas, lalu dibilas sebelum dikeringkan.'},
+ {t:'Menyikat gigi',steps:['Siapkan sikat dan pasta gigi','Beri pasta gigi pada sikat','Sikat semua gigi','Berkumur sampai bersih','Simpan sikat gigi'],why:'Pasta harus ada di sikat sebelum menyikat, dan berkumur dilakukan setelah gigi disikat.'},
+ {t:'Menyiapkan buku sekolah',steps:['Periksa jadwal pelajaran','Ambil buku sesuai jadwal','Masukkan buku ke tas','Periksa kembali isi tas'],why:'Kita perlu tahu jadwalnya dulu supaya buku yang diambil tepat, lalu memeriksa lagi agar tidak ada yang tertinggal.'},
+ {t:'Menyiram tanaman',steps:['Ambil alat penyiram','Isi alat penyiram dengan air','Siram tanaman secukupnya','Simpan alat penyiram'],why:'Alat penyiram harus diisi air sebelum dipakai, dan disimpan setelah selesai.'}
+];
+function ordInit(k,c){
+ var all=c.steps.concat(c.extra||[]);var pool=all.map(function(_,i){return i});shuf(pool);
+ O[k]={c:c,all:all,sel:[],pool:pool,res:false};
+ $(k).innerHTML='<div id="'+k+'_a"></div><textarea id="'+k+'_t" placeholder="Mengapa urutannya begini? Tulis atau ucapkan alasanmu."></textarea><div class="row"><button class="btn g" onclick="ordCk(\''+k+'\')">✅ Periksa Jawaban</button><button class="btn y" onclick="ordInit(\''+k+'\',O[\''+k+'\'].c)">🔄 Ulang</button></div><div id="'+k+'_f" class="fb"></div>';
+ ordR(k);
+}
+function ordR(k){
+ var o=O[k];
+ var a=o.sel.length?o.sel.map(function(i,n){return '<button class="step '+(o.res?(i===n?'ok':'bad'):'')+'" onclick="ordRm(\''+k+'\','+n+')">'+(n+1)+'. '+o.all[i]+'</button>'}).join(''):'<i>Ketuk langkah di bawah, mulai dari langkah pertama.</i>';
+ var p=o.pool.filter(function(i){return o.sel.indexOf(i)<0}).map(function(i){return '<button class="step alt" onclick="ordAdd(\''+k+'\','+i+')">'+o.all[i]+'</button>'}).join('');
+ $(k+'_a').innerHTML='<div class="ans">'+a+'</div><div class="pool">'+p+'</div>';
+}
+function ordAdd(k,i){var o=O[k];o.res=false;o.sel.push(i);ordR(k);$(k+'_f').className='fb'}
+function ordRm(k,n){var o=O[k];o.res=false;o.sel.splice(n,1);ordR(k);$(k+'_f').className='fb'}
+function ordCk(k){
+ var o=O[k],c=o.c,n=c.steps.length;
+ if(!o.sel.length){fb(k+'_f','info','Pilih dulu langkah-langkahnya, ya.');return}
+ var ok=o.sel.length===n&&o.sel.every(function(v,i){return v===i});
+ o.res=true;ordR(k);
+ if(ok){fb(k+'_f','ok','🎉 Benar! '+c.why+'<br>Sekarang jelaskan alasanmu kepada teman-teman.');return}
+ var msg='Belum tepat. ';
+ if(o.sel.some(function(v){return v>=n}))msg+='Ada langkah yang tidak masuk akal. ';
+ if(o.sel.length<n)msg+='Langkahmu belum lengkap. ';
+ var f=o.sel.findIndex(function(v,i){return v!==i});
+ msg+=(f===0)?'Langkah pertamamu belum tepat. Apa yang harus dilakukan paling awal?':'Langkah ke-'+(f+1)+' perlu dipikirkan lagi (hijau = sudah benar, merah = perlu diperbaiki).';
+ fb(k+'_f','bad','🤔 '+msg);
+}
+mkTabs('ps',PS.map(function(a,i){return 'Siswa '+(i+1)+': '+a.t}),function(i,b){
+ b.innerHTML='<p><b>Urutkan langkah: '+PS[i].t+'</b></p><div id="ps'+i+'"></div>';ordInit('ps'+i,PS[i]);
+});
+
+/* ===== CONDITIONAL ===== */
+var CD=[
+ {t:'Hujan atau tidak',ic:'☔',s:[
+  {c:'JIKA hujan: sedang HUJAN deras ☔',o:['Bawa payung','Tidak perlu membawa payung'],a:0,e:'Kondisi "hujan" benar, jadi program menjalankan tindakan setelah JIKA: membawa payung.'},
+  {c:'Hari ini CERAH ☀️ (tidak hujan)',o:['Bawa payung','Tidak perlu membawa payung'],a:1,e:'Kondisi "hujan" tidak benar, jadi program menjalankan JIKA TIDAK: tidak perlu payung.'}]},
+ {t:'Baterai robot',ic:'🔋',s:[
+  {c:'Aturan: JIKA baterai kurang dari 20%. Baterai robot sekarang 15% 🔋',o:['Isi daya baterai','Robot melanjutkan tugas'],a:0,e:'15% lebih kecil dari 20%, jadi kondisinya benar. Robot harus mengisi daya.'},
+  {c:'Aturan: JIKA baterai kurang dari 20%. Baterai robot sekarang 80% 🔋',o:['Isi daya baterai','Robot melanjutkan tugas'],a:1,e:'80% tidak kurang dari 20%, jadi kondisinya tidak benar. Robot melanjutkan tugas.'}]},
+ {t:'Lampu lalu lintas',ic:'🚦',s:[
+  {c:'Lampu lalu lintas berwarna MERAH 🔴',o:['Berhenti','Jalan terus','Jalan pelan-pelan'],a:0,e:'JIKA lampu merah, tindakannya selalu berhenti.'},
+  {c:'Lampu lalu lintas berwarna HIJAU 🟢',o:['Berhenti','Jalan setelah memastikan keadaan aman','Jalan cepat sambil menutup mata'],a:1,e:'Lampu hijau bukan merah, jadi kita periksa kondisinya: hijau boleh jalan, tetapi tetap lihat kiri dan kanan. Kalau kuning, bersiap berhenti. Jadi JIKA TIDAK bergantung pada kondisi lampunya.'}]},
+ {t:'Tanah tanaman',ic:'🪴',s:[
+  {c:'Tanah tanaman terlihat KERING dan retak 🏜️',o:['Siram tanaman','Jangan disiram'],a:0,e:'Tanah kering berarti tanaman butuh air, jadi robot menyiram.'},
+  {c:'Tanah tanaman masih BASAH 💧',o:['Siram tanaman','Jangan disiram'],a:1,e:'Tanah basah berarti tanaman sudah cukup air. Menyiram lagi bisa membuat tanaman tergenang.'}]}
+];
+var CS={};
+function cdR(i){
+ var a=CD[i],st=CS[i],s=a.s[st.s];
+ var h='<div class="row">'+a.s.map(function(_,j){return '<button class="btn '+(j===st.s?'y':'')+'" onclick="cdSet('+i+','+j+')">Kondisi '+(j+1)+'</button>'}).join('')+'</div>';
+ h+='<div class="cond">'+a.ic+' '+s.c+'</div><p><b>Apa tindakan yang tepat?</b></p>';
+ h+=s.o.map(function(o,k){var cl=st.p===k?(k===s.a?'ok':'bad'):'';return '<button class="opt '+cl+'" onclick="cdPick('+i+','+k+')">'+o+'</button>'}).join('');
+ h+='<div id="cdf" class="fb"></div>';
+ $('bd-cd').innerHTML=h;
+ if(st.p!==null){var good=st.p===s.a;fb('cdf',good?'ok':'bad',(good?'🎉 Benar! ':'🤔 Belum tepat. ')+s.e+'<br>Coba jelaskan: "Karena kondisinya ..., maka ...".')}
+}
+function cdSet(i,j){CS[i]={s:j,p:null};cdR(i)}
+function cdPick(i,k){CS[i].p=k;cdR(i)}
+mkTabs('cd',CD.map(function(a,i){return 'Siswa '+(i+1)+': '+a.t}),function(i){CS[i]={s:0,p:null};cdR(i)});
+
+/* ===== LOOPING ===== */
+var LP=[
+ {t:'Tepuk tangan 3 kali',ic:'👏',n:3,h:'ULANGI 3 KALI:',a:'Tepuk tangan.',u:'tepukan',stop:'hitungan sudah mencapai 3 kali'},
+ {t:'Lompat 4 kali',ic:'🦘',n:4,h:'ULANGI 4 KALI:',a:'Lompat satu kali.',u:'lompatan',stop:'hitungan sudah mencapai 4 kali'},
+ {t:'Siram sampai 5 tanaman diperiksa',ic:'🪴',n:5,h:'ULANGI SAMPAI 5 TANAMAN DIPERIKSA:',a:'Periksa dan siram satu tanaman.',u:'tanaman',stop:'5 tanaman sudah diperiksa'},
+ {t:'Ulang langkah 6 kali',ic:'⭐',n:6,h:'ULANGI 6 KALI:',a:'Kerjakan satu langkah.',u:'langkah',stop:'hitungan sudah mencapai 6 kali'}
+];
+var L={i:0,c:0},lpT=null;
+function lpR(){
+ var a=LP[L.i],done=L.c>=a.n;
+ var sl='';for(var k=0;k<a.n;k++)sl+='<div class="slot '+(k<L.c?'on':'')+'">'+a.ic+'</div>';
+ $('bd-lp').innerHTML='<pre><b>'+a.h+'</b>\n  '+a.a+'</pre><p>Tanpa looping, kita harus menulis "'+a.a+'" sebanyak '+a.n+' kali. Dengan looping, cukup satu kali!</p><div class="slots">'+sl+'</div><div class="count">Pengulangan: '+L.c+' / '+a.n+'</div><div class="row" style="justify-content:center"><button class="btn" onclick="lpStep()">▶ Jalankan 1 Kali</button><button class="btn g" onclick="lpAll()">⏩ Jalankan Sampai Selesai</button><button class="btn y" onclick="lpReset()">🔄 Ulang dari Awal</button></div><div class="fb '+(done?'ok':'info')+'">'+(done?'✅ Selesai! Looping berhenti karena '+a.stop+'. Kondisi berhenti yang jelas membuat robot tidak mengulang terus-menerus.':'Belum selesai. Masih ada '+(a.n-L.c)+' '+a.u+' lagi. Looping terus berjalan sampai '+a.stop+'.')+'</div>';
+}
+function lpStep(){var a=LP[L.i];if(L.c<a.n)L.c++;lpR()}
+function lpAll(){
+ if(lpT)clearInterval(lpT);
+ lpT=setInterval(function(){
+  if(L.c<LP[L.i].n){L.c++;lpR()}
+  if(L.c>=LP[L.i].n){clearInterval(lpT);lpT=null}
+ },600);
+}
+function lpReset(){if(lpT){clearInterval(lpT);lpT=null}L.c=0;lpR()}
+mkTabs('lp',LP.map(function(a,i){return 'Siswa '+(i+1)+': '+a.t}),function(i){if(lpT){clearInterval(lpT);lpT=null}L={i:i,c:0};lpR()});
+
+/* ===== MISI ===== */
+var M2D=[{c:'Tanah KERING 🏜️',a:'siram'},{c:'Tanah BASAH 💧',a:'tidak'},{c:'Tanah retak dan sangat KERING 🌵',a:'siram'},{c:'Tanah lembap dan masih BASAH 🌧️',a:'tidak'}];
+var M2={};var M3={n:1,r:null,done:false};
+var MS=['Misi 1: Robot Menyiapkan Tas','Misi 2: Robot Penjaga Tanaman','Misi 3: Robot Pemeriksa Kursi'];
+mkTabs('ms',MS,function(i,b){
+ if(i===0){
+  b.innerHTML='<h3>🤖🎒 Robot Menyiapkan Tas</h3><p>Susun instruksi untuk robot. <b>Hati-hati:</b> ada langkah yang tidak masuk akal, jangan dipilih!</p><div id="m1"></div>';
+  ordInit('m1',{steps:['Periksa jadwal pelajaran','Siapkan buku sesuai jadwal','Masukkan alat tulis','Periksa kembali isi tas'],extra:['Masukkan es krim ke dalam tas','Tinggalkan tas di jalan'],why:'Robot harus tahu jadwal dulu, menyiapkan buku, memasukkan alat tulis, lalu memeriksa ulang. Es krim dan meninggalkan tas tidak membantu persiapan.'});
+ }else if(i===1){
+  M2={};
+  b.innerHTML='<h3>🤖🌱 Robot Penjaga Tanaman</h3><p>Aturan: <b>JIKA tanah kering → siram. JIKA TIDAK → jangan siram.</b> Tentukan tindakan robot untuk setiap kondisi.</p><div id="m2l"></div><textarea placeholder="Jelaskan alasanmu: mengapa robot menyiram atau tidak menyiram?"></textarea><div class="row"><button class="btn g" onclick="m2Ck()">✅ Periksa Jawaban</button><button class="btn y" onclick="m2Reset()">🔄 Ulang</button></div><div id="m2f" class="fb"></div>';
+  m2R(false);
+ }else{
+  M3={n:1,r:null,done:false};m3R();
+ }
+});
+function m2R(chk){
+ $('m2l').innerHTML=M2D.map(function(d,i){
+  var p=M2[i],cl=chk?(p===d.a?'ok':'bad'):'';
+  return '<div class="pc '+cl+'"><b>'+(i+1)+'. '+d.c+'</b><span><button class="opt '+(p==='siram'?'sel':'')+'" onclick="m2Set('+i+',\'siram\')">💦 Siram</button><button class="opt '+(p==='tidak'?'sel':'')+'" onclick="m2Set('+i+',\'tidak\')">🚫 Jangan siram</button></span></div>';
+ }).join('');
+}
+function m2Set(i,v){M2[i]=v;m2R(false);$('m2f').className='fb'}
+function m2Reset(){M2={};m2R(false);$('m2f').className='fb';document.querySelector('#bd-ms textarea').value=''}
+function m2Ck(){
+ if(Object.keys(M2).length<M2D.length){fb('m2f','info','Jawab semua kondisi dulu, ya.');return}
+ m2R(true);
+ var w=M2D.filter(function(d,i){return M2[i]!==d.a}).length;
+ fb('m2f',w?'bad':'ok',w?'🤔 Ada '+w+' jawaban yang belum tepat (merah). Ingat: hanya tanah kering yang disiram.':'🎉 Hebat! Robot menyiram saat tanah kering dan tidak menyiram saat tanah basah. Itu IF–ELSE! Sekarang ucapkan alasanmu.');
+}
+function m3R(){
+ var n=M3.n,sl='';
+ for(var k=0;k<5;k++)sl+='<div class="slot '+(M3.done&&k<Math.min(n,5)?'on':'')+'">🪑</div>';
+ var R=['Karena ada 5 kursi dan setiap putaran memeriksa 1 kursi','Karena robot suka angka 5','Karena 1 putaran cukup untuk semua kursi'];
+ $('bd-ms').innerHTML='<h3>🤖🪑 Robot Pemeriksa Kursi</h3><p>Robot harus memeriksa <b>5 kursi</b>. Setiap putaran, robot memeriksa <b>1 kursi</b>. Berapa kali robot harus mengulang?</p><pre><b>ULANGI '+n+' KALI:</b>\n  Periksa satu kursi.</pre><div class="slots">'+sl+'</div><div class="row" style="justify-content:center"><button class="btn" onclick="m3N(-1)">➖</button><span class="num">'+n+'</span><button class="btn" onclick="m3N(1)">➕</button></div><p><b>Pilih alasanmu:</b></p><div class="bigopt">'+R.map(function(r,k){return '<button class="opt '+(M3.r===k?'sel':'')+'" onclick="m3Rs('+k+')">'+r+'</button>'}).join('')+'</div><div class="row"><button class="btn g" onclick="m3Ck()">✅ Periksa dan Jalankan Robot</button><button class="btn y" onclick="m3Reset()">🔄 Ulang</button></div><div id="m3f" class="fb"></div>';
+}
+function m3N(d){M3.n=Math.max(1,Math.min(9,M3.n+d));M3.done=false;m3R()}
+function m3Rs(k){M3.r=k;M3.done=false;m3R()}
+function m3Reset(){M3={n:1,r:null,done:false};m3R()}
+function m3Ck(){
+ if(M3.r===null){M3.done=false;m3R();fb('m3f','info','Pilih alasanmu dulu, ya.');return}
+ M3.done=true;m3R();var n=M3.n,ok=n===5,rok=M3.r===0;
+ if(ok&&rok)fb('m3f','ok','🎉 Benar! 5 kursi dan 1 kursi per putaran berarti 5 pengulangan. Semua kursi sudah diperiksa.');
+ else if(ok)fb('m3f','bad','🤔 Jumlah 5 sudah benar, tetapi alasanmu belum tepat. Hitung: 5 kursi, 1 kursi tiap putaran.');
+ else if(n<5)fb('m3f','bad','🤔 Hanya '+n+' kursi yang diperiksa. Masih ada '+(5-n)+' kursi belum diperiksa. Tambah pengulangannya.');
+ else fb('m3f','bad','🤔 Robot mengulang '+n+' kali, padahal hanya ada 5 kursi. Ada '+(n-5)+' putaran yang sia-sia karena tidak ada kursi lagi.');
+}
+
+/* ===== KUIS ===== */
+var QZ=[
+ {q:'Apa yang dimaksud dengan pseudocode?',o:['Bahasa rahasia robot','Langkah-langkah penyelesaian masalah yang ditulis dengan bahasa sederhana','Gambar yang dibuat komputer','Permainan di komputer'],a:1,e:'Pseudocode adalah rencana langkah yang ditulis dengan bahasa sederhana sebelum membuat program.'},
+ {q:'Mana urutan yang benar untuk menanam biji?',o:['Tanam biji, siapkan pot, siram','Siram, tanam biji, masukkan tanah','Siapkan pot dan tanah, masukkan tanah ke pot, tanam biji, siram','Masukkan tanah, siram, siapkan pot, tanam biji'],a:2,e:'Pot dan tanah disiapkan lebih dulu, lalu tanah dimasukkan, biji ditanam, dan terakhir disiram.'},
+ {q:'Mengapa kita menulis pseudocode sebelum membuat program?',o:['Agar komputer menjadi cepat','Agar langkah-langkahnya terencana dan jelas','Agar program tidak perlu dijalankan','Agar tidak perlu berpikir'],a:1,e:'Pseudocode membantu merencanakan instruksi supaya jelas dan berurutan.'},
+ {q:'Aturan: JIKA hujan, bawa payung. JIKA TIDAK, tidak perlu payung. Hari ini cerah. Apa yang dilakukan?',o:['Bawa payung','Tidak perlu membawa payung','Tidak berangkat','Menunggu hujan'],a:1,e:'Cerah berarti tidak hujan, jadi program menjalankan JIKA TIDAK.'},
+ {q:'Aturan: JIKA baterai kurang dari 20%, isi daya. Baterai robot 15%. Apa tindakan robot?',o:['Melanjutkan tugas','Mematikan lampu','Mengisi daya baterai','Berlari'],a:2,e:'15% kurang dari 20%, jadi kondisinya benar dan robot mengisi daya.'},
+ {q:'Dalam pseudocode, "JIKA TIDAK" (ELSE) artinya...',o:['Jika kondisinya tidak benar','Ulangi lagi','Selesai','Jika kondisinya benar'],a:0,e:'JIKA TIDAK dijalankan ketika kondisi setelah JIKA tidak benar.'},
+ {q:'ULANGI 4 KALI: Lompat satu kali. Berapa kali robot melompat?',o:['1 kali','3 kali','5 kali','4 kali'],a:3,e:'Instruksi di dalam looping dijalankan sebanyak 4 kali.'},
+ {q:'Mengapa looping berguna?',o:['Agar tidak menulis instruksi yang sama berkali-kali','Agar program lebih panjang','Agar komputer berhenti','Agar robot tidak perlu instruksi'],a:0,e:'Looping membuat instruksi yang berulang cukup ditulis sekali.'},
+ {q:'Apa yang harus dimiliki looping agar tidak berjalan terus-menerus?',o:['Gambar yang bagus','Suara yang keras','Jumlah pengulangan atau kondisi berhenti yang jelas','Warna yang cerah'],a:2,e:'Looping harus punya jumlah pengulangan atau kondisi berhenti.'},
+ {q:'ULANGI UNTUK 3 TANAMAN: JIKA tanah kering, siram. JIKA TIDAK, lewati. Tanaman 1 kering, 2 basah, 3 kering. Berapa tanaman yang disiram?',o:['3','1','2','0'],a:2,e:'Robot memeriksa 3 tanaman. Hanya tanaman 1 dan 3 yang kering, jadi 2 tanaman disiram.'}
+];
+var Z={i:0,s:0,p:null,w:0};
+function qzR(){
+ var e=$('quiz');
+ if(Z.i>=QZ.length){
+  e.innerHTML='<h2>🎉 Kuis selesai!</h2><div class="count">Skor: '+Z.s+' / 10</div><p style="text-align:center">✅ Benar: <b>'+Z.s+'</b> &nbsp; ❌ Salah: <b>'+Z.w+'</b></p><div class="row" style="justify-content:center"><button class="btn y" onclick="qzReset()">🔄 Ulang Kuis</button></div>';
+  return;
+ }
+ var q=QZ[Z.i],ans=Z.p!==null;
+ e.innerHTML='<div class="prog">Soal '+(Z.i+1)+' dari 10</div><h3>'+q.q+'</h3>'+q.o.map(function(o,k){
+  var cl=ans?(k===q.a?'ok':(k===Z.p?'bad':'')):'';
+  return '<button class="opt '+cl+'" '+(ans?'disabled':'')+' onclick="qzPick('+k+')">'+'ABCD'.charAt(k)+'. '+o+'</button>';
+ }).join('')+'<div class="fb '+(ans?(Z.p===q.a?'ok':'bad'):'')+'">'+(ans?(Z.p===q.a?'🎉 Benar! ':'🤔 Salah. ')+q.e:'')+'</div>'+(ans?'<button class="btn g" onclick="qzNext()">'+(Z.i===9?'Lihat Skor ➡':'Soal Berikutnya ➡')+'</button>':'');
+}
+function qzPick(k){if(Z.p!==null)return;Z.p=k;if(k===QZ[Z.i].a)Z.s++;else Z.w++;qzR()}
+function qzNext(){Z.i++;Z.p=null;qzR()}
+function qzReset(){Z={i:0,s:0,p:null,w:0};qzR()}
+qzR();
+go('home');
+</script>
+</body>
+</html>
